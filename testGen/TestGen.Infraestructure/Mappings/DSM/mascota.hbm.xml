@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="MascotaNH" table="Mascota"> 
+				  	
+						<id name="Id" column="idMascota" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Nombre" type="string"> 
+						<column name="nombre"  not-null="true"/>
+					</property>
+					<property name="Raza" type="string"> 
+						<column name="raza"  not-null="true"/>
+					</property>
+					<property name="Sexo" > 
+						<column name="sexo"  not-null="true"/>
+					</property>
+					<property name="Vacunacion" type="string"> 
+						<column name="vacunacion"  not-null="true"/>
+					</property>
+					<property name="Tamanyo" > 
+						<column name="tamanyo"  not-null="true"/>
+					</property>
+					<property name="Edad" type="string"> 
+						<column name="edad"  not-null="true"/>
+					</property>
+					<property name="Descripcion" type="string"> 
+						<column name="descripcion"  not-null="true"/>
+					</property>
+					<property name="ValoracionMedia" type="double"> 
+						<column name="valoracionMedia"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+			
+			
+		  			
+					
+							   <one-to-one name="Duenyo" class="TestGen.Infraestructure.EN.DSM.UsuarioNH" property-ref="Mascota" />							
+					 
+						
+			
+			
+			
+		  			
+						<bag name="MatchEnviados" >
+							<key>
+							
+								
+								<column name="FK_idMascota_idMascota"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.MatchNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="MatchRecibidos" >
+							<key>
+							
+								
+								<column name="FK_idMascota_idMascotaRecibe"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.MatchNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="ValoracionesRecibidas" >
+							<key>
+							
+								
+								<column name="FK_idMascota_idMascotaRecibe"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.ValoracionNH"/>
+					    </bag>
+					
+			
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="MascotaNHReadAllHQL">from MascotaNH</query>
+		  <query name="MascotaNHleerPorRazaHQL"><![CDATA[select mas FROM MascotaNH as mas where mas.Raza = :raza]]></query>
+		  <query name="MascotaNHleerPorTamanyoHQL"><![CDATA[select mas FROM MascotaNH as mas where mas.Tamanyo = :tamanyo]]></query>
+		  <query name="MascotaNHleerPorSexoHQL"><![CDATA[select mas FROM MascotaNH as mas where mas.Sexo = :sexo]]></query>
+		</hibernate-mapping>
+	

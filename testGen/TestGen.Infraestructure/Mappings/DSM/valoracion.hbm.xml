@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="ValoracionNH" table="Valoracion"> 
+				  	
+						<id name="Id" column="idValoracion" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Valor" type="integer"> 
+						<column name="valor"  not-null="true"/>
+					</property>
+			
+			
+		  			
+						<many-to-one name="MascotaRecibe" class="TestGen.Infraestructure.EN.DSM.MascotaNH" >	
+								<column name="FK_idMascota_idMascotaRecibe"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="UsuarioValora" class="TestGen.Infraestructure.EN.DSM.UsuarioNH" >	
+								<column name="FK_email_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+			
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="ValoracionNHReadAllHQL">from ValoracionNH</query>
+		</hibernate-mapping>
+	

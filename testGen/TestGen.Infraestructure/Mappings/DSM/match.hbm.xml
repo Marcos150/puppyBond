@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="MatchNH" table="Match"> 
+				  	
+						<id name="Id" column="idMatch" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Estado" > 
+						<column name="estado"  not-null="true"/>
+					</property>
+					<property name="Ubicacion" type="string"> 
+						<column name="ubicacion"  not-null="true"/>
+					</property>
+			
+			
+			
+		  			
+						<many-to-one name="MascotaEnvia" class="TestGen.Infraestructure.EN.DSM.MascotaNH" >	
+								<column name="FK_idMascota_idMascota"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="MascotaRecibe" class="TestGen.Infraestructure.EN.DSM.MascotaNH" >	
+								<column name="FK_idMascota_idMascotaRecibe"/> 
+						</many-to-one>
+											 					
+			
+			
+		  			
+						<bag name="NotificacionesEnviadasMatch" >
+							<key>
+							
+								
+								<column name="FK_idMatch_idMatch"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.NotificacionNH"/>
+					    </bag>
+					
+			
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="MatchNHReadAllHQL">from MatchNH</query>
+		</hibernate-mapping>
+	

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="MensajeNH" table="Mensaje"> 
+				  	
+						<id name="Id" column="idMensaje" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Contenido" type="string"> 
+						<column name="contenido"  not-null="true"/>
+					</property>
+					<property name="Fecha" type="timestamp"> 
+						<column name="fecha"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+		  			
+						<many-to-one name="Emisor" class="TestGen.Infraestructure.EN.DSM.UsuarioNH" >	
+								<column name="FK_email_idEmisor"/> 
+						</many-to-one>
+											 					
+			
+		  			
+						<many-to-one name="Receptor" class="TestGen.Infraestructure.EN.DSM.UsuarioNH" >	
+								<column name="FK_email_idReceptor"/> 
+						</many-to-one>
+											 					
+			
+			
+		  			
+						<bag name="NotificacionesEnviadaMsj" table="[notificacion_mensaje]" inverse="true" >
+							<key>
+								
+									<column name="FK_idMensaje_idMensaje"/> 
+							</key>
+      						<many-to-many class="TestGen.Infraestructure.EN.DSM.NotificacionNH">
+									<column name="FK_idNotificacion_idNotificacionEnviadaMsj"/> 
+      						</many-to-many>
+    					</bag>
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="MensajeNHReadAllHQL">from MensajeNH</query>
+		</hibernate-mapping>
+	

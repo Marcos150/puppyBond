@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="TiqueSoporteNH" table="TiqueSoporte"> 
+				  	
+						<id name="Id" column="idTiqueSoporte" type="integer"> 
+							<generator class="hilo"/>
+						</id>
+			
+					
+					<property name="Contenido" type="string"> 
+						<column name="contenido"  not-null="true"/>
+					</property>
+			
+			
+			
+		  			
+						<many-to-one name="UsuarioManda" class="TestGen.Infraestructure.EN.DSM.UsuarioNH" >	
+								<column name="FK_email_idUsuario"/> 
+						</many-to-one>
+											 					
+			
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="TiqueSoporteNHReadAllHQL">from TiqueSoporteNH</query>
+		</hibernate-mapping>
+	

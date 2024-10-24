@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+		<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+		                   assembly="TestGen.Infraestructure"
+		                   namespace="TestGen.Infraestructure.EN.DSM">
+		    
+		    
+			
+				<class name="UsuarioNH" table="Usuario"> 
+						<id name="Email" column="email"/> 
+			
+					
+					<property name="Nombre" type="string"> 
+						<column name="nombre"  not-null="true"/>
+					</property>
+					<property name="Apellidos" type="string"> 
+						<column name="apellidos"  not-null="true"/>
+					</property>
+					<property name="Pass" type="string"> 
+						<column name="pass"  not-null="true"/>
+					</property>
+					<property name="Disponibilidad" type="string"> 
+						<column name="disponibilidad"  not-null="true"/>
+					</property>
+					<property name="Ubicacion" type="string"> 
+						<column name="ubicacion"  not-null="true"/>
+					</property>
+			
+			
+			
+			
+			
+			
+			
+		  			
+					
+							<many-to-one name="Mascota" class="TestGen.Infraestructure.EN.DSM.MascotaNH" >
+								<column name="FK_idMascota_idMascota"/> 
+        					</many-to-one>
+					 
+						
+			
+		  			
+						<bag name="MensajesEmitidos" >
+							<key>
+							
+								
+								<column name="FK_email_idEmisor"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.MensajeNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="MensajesRecibidos" >
+							<key>
+							
+								
+								<column name="FK_email_idReceptor"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.MensajeNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="ValoracionesEnviadas" >
+							<key>
+							
+								
+								<column name="FK_email_idUsuario"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.ValoracionNH"/>
+					    </bag>
+					
+			
+		  			
+						<bag name="NotificacionesRecibidas" >
+							<key>
+							
+								
+								<column name="FK_email_idUsuario"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.NotificacionNH"/>
+					    </bag>
+					
+			
+			
+		  			
+						<bag name="TiqueEsDe" >
+							<key>
+							
+								
+								<column name="FK_email_idUsuario"/>
+					      	</key>
+							<one-to-many class="TestGen.Infraestructure.EN.DSM.TiqueSoporteNH"/>
+					    </bag>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+		
+		 </class>	
+		  
+		  <query name="UsuarioNHReadAllHQL">from UsuarioNH</query>
+		</hibernate-mapping>
+	
