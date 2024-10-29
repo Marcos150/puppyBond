@@ -20,7 +20,7 @@ public void EnviarCorreo (int p_oid)
         /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Notificacion_enviarCorreo) ENABLED START*/
 
         // Write here your custom code...
-        Console.WriteLine ("Correo de notificaci�n enviado");
+        Console.WriteLine ("Correo de notificación enviado");
 
         //throw new NotImplementedException ("Method EnviarCorreo() not yet implemented.");
 

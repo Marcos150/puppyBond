@@ -282,5 +282,35 @@ public System.Collections.Generic.IList<UsuarioEN> LeerAll (int first, int size)
 
         return result;
 }
+
+public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados ()
+{
+        System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> result;
+        try
+        {
+                SessionInitializeTransaction ();
+                //String sql = @"FROM UsuarioNH self where select usu FROM UsuarioNH as usu where ";
+                //IQuery query = session.CreateQuery(sql);
+                IQuery query = (IQuery)session.GetNamedQuery ("UsuarioNHobtenerUsuariosMatcheadosHQL");
+
+                result = query.List<TestGen.ApplicationCore.EN.DSM.UsuarioEN>();
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is TestGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new TestGen.ApplicationCore.Exceptions.DataLayerException ("Error in UsuarioRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+
+        return result;
+}
 }
 }

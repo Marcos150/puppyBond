@@ -32,5 +32,9 @@ UsuarioEN LeerOID (string email
 
 
 System.Collections.Generic.IList<UsuarioEN> LeerAll (int first, int size);
+
+
+
+System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados ();
 }
 }

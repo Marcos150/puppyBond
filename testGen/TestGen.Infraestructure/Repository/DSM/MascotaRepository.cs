@@ -124,6 +124,9 @@ public void ModifyDefault (MascotaEN mascota)
 
                 mascotaNH.ValoracionMedia = mascota.ValoracionMedia;
 
+
+                mascotaNH.Imagen = mascota.Imagen;
+
                 session.Update (mascotaNH);
                 SessionCommit ();
         }
@@ -208,6 +211,9 @@ public void Modificar (MascotaEN mascota)
 
 
                 mascotaNH.ValoracionMedia = mascota.ValoracionMedia;
+
+
+                mascotaNH.Imagen = mascota.Imagen;
 
                 session.Update (mascotaNH);
                 SessionCommit ();

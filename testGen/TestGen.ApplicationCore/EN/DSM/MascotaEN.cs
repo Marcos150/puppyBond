@@ -96,6 +96,13 @@ private double valoracionMedia;
 
 
 
+/**
+ *	Atributo imagen
+ */
+private string imagen;
+
+
+
 
 
 
@@ -177,6 +184,12 @@ public virtual double ValoracionMedia {
 
 
 
+public virtual string Imagen {
+        get { return imagen; } set { imagen = value;  }
+}
+
+
+
 
 
 public MascotaEN()
@@ -188,20 +201,20 @@ public MascotaEN()
 
 
 
-public MascotaEN(int id, string nombre, string raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum sexo, string vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum tamanyo, string edad, TestGen.ApplicationCore.EN.DSM.UsuarioEN duenyo, string descripcion, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchEnviados, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchRecibidos, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.ValoracionEN> valoracionesRecibidas, double valoracionMedia
+public MascotaEN(int id, string nombre, string raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum sexo, string vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum tamanyo, string edad, TestGen.ApplicationCore.EN.DSM.UsuarioEN duenyo, string descripcion, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchEnviados, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchRecibidos, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.ValoracionEN> valoracionesRecibidas, double valoracionMedia, string imagen
                  )
 {
-        this.init (Id, nombre, raza, sexo, vacunacion, tamanyo, edad, duenyo, descripcion, matchEnviados, matchRecibidos, valoracionesRecibidas, valoracionMedia);
+        this.init (Id, nombre, raza, sexo, vacunacion, tamanyo, edad, duenyo, descripcion, matchEnviados, matchRecibidos, valoracionesRecibidas, valoracionMedia, imagen);
 }
 
 
 public MascotaEN(MascotaEN mascota)
 {
-        this.init (mascota.Id, mascota.Nombre, mascota.Raza, mascota.Sexo, mascota.Vacunacion, mascota.Tamanyo, mascota.Edad, mascota.Duenyo, mascota.Descripcion, mascota.MatchEnviados, mascota.MatchRecibidos, mascota.ValoracionesRecibidas, mascota.ValoracionMedia);
+        this.init (mascota.Id, mascota.Nombre, mascota.Raza, mascota.Sexo, mascota.Vacunacion, mascota.Tamanyo, mascota.Edad, mascota.Duenyo, mascota.Descripcion, mascota.MatchEnviados, mascota.MatchRecibidos, mascota.ValoracionesRecibidas, mascota.ValoracionMedia, mascota.Imagen);
 }
 
 private void init (int id
-                   , string nombre, string raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum sexo, string vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum tamanyo, string edad, TestGen.ApplicationCore.EN.DSM.UsuarioEN duenyo, string descripcion, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchEnviados, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchRecibidos, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.ValoracionEN> valoracionesRecibidas, double valoracionMedia)
+                   , string nombre, string raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum sexo, string vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum tamanyo, string edad, TestGen.ApplicationCore.EN.DSM.UsuarioEN duenyo, string descripcion, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchEnviados, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MatchEN> matchRecibidos, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.ValoracionEN> valoracionesRecibidas, double valoracionMedia, string imagen)
 {
         this.Id = id;
 
@@ -229,6 +242,8 @@ private void init (int id
         this.ValoracionesRecibidas = valoracionesRecibidas;
 
         this.ValoracionMedia = valoracionMedia;
+
+        this.Imagen = imagen;
 }
 
 public override bool Equals (object obj)
