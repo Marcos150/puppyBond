@@ -110,6 +110,6 @@
 		 </class>	
 		  
 		  <query name="UsuarioNHReadAllHQL">from UsuarioNH</query>
-		  <query name="UsuarioNHobtenerUsuariosMatcheadosHQL"><![CDATA[select usu FROM UsuarioNH as usu where ]]></query>
+		  <query name="UsuarioNHobtenerUsuariosMatcheadosHQL"><![CDATA[select usu FROM UsuarioNH as usu ]]></query>
 		</hibernate-mapping>
 	

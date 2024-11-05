@@ -8,6 +8,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestGen.Infraestructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestGen.ApplicationCore", "TestGen.ApplicationCore\TestGen.ApplicationCore.csproj", "{A36E8B95-8675-4FD4-B567-9A0295BC5C7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{C96596DE-58BD-4AE4-95A6-197C34505D61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{A36E8B95-8675-4FD4-B567-9A0295BC5C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36E8B95-8675-4FD4-B567-9A0295BC5C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36E8B95-8675-4FD4-B567-9A0295BC5C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C96596DE-58BD-4AE4-95A6-197C34505D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96596DE-58BD-4AE4-95A6-197C34505D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96596DE-58BD-4AE4-95A6-197C34505D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96596DE-58BD-4AE4-95A6-197C34505D61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

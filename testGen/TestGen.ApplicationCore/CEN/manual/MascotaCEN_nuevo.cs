@@ -47,9 +47,11 @@ public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumer
 
         mascotaEN.ValoracionMedia = p_valoracionMedia;
 
-        //Call to MascotaRepository
+        mascotaEN.Imagen = "default.png";
 
-        oid = _IMascotaRepository.Nuevo (mascotaEN);
+            //Call to MascotaRepository
+
+            oid = _IMascotaRepository.Nuevo (mascotaEN);
         return oid;
         /*PROTECTED REGION END*/
 }

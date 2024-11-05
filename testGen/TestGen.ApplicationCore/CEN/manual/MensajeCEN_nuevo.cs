@@ -39,9 +39,11 @@ public int Nuevo (string p_contenido, string p_emisor, string p_receptor)
                 mensajeEN.Receptor.Email = p_receptor;
         }
 
-        //Call to MensajeRepository
+        mensajeEN.Fecha = DateTime.Now;
 
-        oid = _IMensajeRepository.Nuevo (mensajeEN);
+            //Call to MensajeRepository
+
+            oid = _IMensajeRepository.Nuevo (mensajeEN);
         return oid;
         /*PROTECTED REGION END*/
 }
