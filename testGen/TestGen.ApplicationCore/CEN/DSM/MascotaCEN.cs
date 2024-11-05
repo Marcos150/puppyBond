@@ -30,45 +30,6 @@ public IMascotaRepository get_IMascotaRepository ()
         return this._IMascotaRepository;
 }
 
-public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_duenyo, string p_descripcion, double p_valoracionMedia, string p_imagen)
-{
-        MascotaEN mascotaEN = null;
-        int oid;
-
-        //Initialized MascotaEN
-        mascotaEN = new MascotaEN ();
-        mascotaEN.Nombre = p_nombre;
-
-        mascotaEN.Raza = p_raza;
-
-        mascotaEN.Sexo = p_sexo;
-
-        mascotaEN.Vacunacion = p_vacunacion;
-
-        mascotaEN.Tamanyo = p_tamanyo;
-
-        mascotaEN.Edad = p_edad;
-
-
-        if (p_duenyo != null) {
-                // El argumento p_duenyo -> Property duenyo es oid = false
-                // Lista de oids id
-                mascotaEN.Duenyo = new TestGen.ApplicationCore.EN.DSM.UsuarioEN ();
-                mascotaEN.Duenyo.Email = p_duenyo;
-        }
-
-        mascotaEN.Descripcion = p_descripcion;
-
-        mascotaEN.ValoracionMedia = p_valoracionMedia;
-
-        mascotaEN.Imagen = p_imagen;
-
-
-
-        oid = _IMascotaRepository.Nuevo (mascotaEN);
-        return oid;
-}
-
 public void Modificar (int p_Mascota_OID, string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_descripcion, double p_valoracionMedia, string p_imagen)
 {
         MascotaEN mascotaEN = null;

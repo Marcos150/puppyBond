@@ -106,9 +106,9 @@ public string Login (string p_Usuario_OID, string p_pass)
         return result;
 }
 
-public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados ()
+public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados (string p_usu_OID)
 {
-        return _IUsuarioRepository.ObtenerUsuariosMatcheados ();
+        return _IUsuarioRepository.ObtenerUsuariosMatcheados (p_usu_OID);
 }
 
 

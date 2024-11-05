@@ -35,6 +35,6 @@ System.Collections.Generic.IList<UsuarioEN> LeerAll (int first, int size);
 
 
 
-System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados ();
+System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados (string p_usu_OID);
 }
 }

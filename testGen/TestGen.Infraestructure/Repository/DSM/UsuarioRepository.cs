@@ -283,7 +283,7 @@ public System.Collections.Generic.IList<UsuarioEN> LeerAll (int first, int size)
         return result;
 }
 
-public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados ()
+public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> ObtenerUsuariosMatcheados (string p_usu_OID)
 {
         System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN> result;
         try
@@ -292,6 +292,7 @@ public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN
                 //String sql = @"FROM UsuarioNH self where select usu FROM UsuarioNH as usu where ";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("UsuarioNHobtenerUsuariosMatcheadosHQL");
+                query.SetParameter ("p_usu_OID", p_usu_OID);
 
                 result = query.List<TestGen.ApplicationCore.EN.DSM.UsuarioEN>();
                 SessionCommit ();
