@@ -128,7 +128,7 @@ public static void InitializeData ()
                 mascotacen.LeerPorTamanyo (TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande);
 
                 // Creacion de mensajes
-                int mensajeId1 = mensajecen.Nuevo ("Hola, estoy interesado en Firulais. ¿Sigue disponible?", emailUsuarioNuevo, emailUsuarioNuevo, DateTime.Now);
+                int mensajeId1 = mensajecen.Nuevo ("Hola, estoy interesado en Firulais. ¿Sigue disponible?", emailUsuarioNuevo, emailUsuarioNuevo);
                 Console.WriteLine ("Mensaje 1 creado correctamente");
 
                 // Creacion de matches
