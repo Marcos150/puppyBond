@@ -402,6 +402,9 @@ FodyWeavers.xsd
 # Eclipse metadata
 .metadata
 
+# Credenciales
+.env
+
 # Otros
 ej5/
 ej5Gen/

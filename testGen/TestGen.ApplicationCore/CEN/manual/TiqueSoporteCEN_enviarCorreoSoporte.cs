@@ -21,6 +21,9 @@ public void EnviarCorreoSoporte (int p_oid)
 
         // Write here your custom code...
 
+        TiqueSoporteEN tiqueSoporteEn = _ITiqueSoporteRepository.ReadOIDDefault(p_oid);
+        //TODO: De momento se envia correo a si mismo. Esto se podria cambiar
+        EmailUtils.SendEmailToSelf("Tique de soporte enviado por: " + tiqueSoporteEn.UsuarioManda.Email, tiqueSoporteEn.Contenido);
         Console.WriteLine ("Correo de soporte enviado");
 
         //throw new NotImplementedException ("Method EnviarCorreoSoporte() not yet implemented.");
