@@ -140,7 +140,7 @@ public static void InitializeData ()
                 Console.WriteLine ("Valoracion 1 creada correctamente");
 
                 // Creacion de notificaciones
-                int notificacionId1 = notificacioncen.Nuevo (matchId1, emailUsuarioNuevo, "Tu mascota Firulais ha recibido una nueva valoracion.");
+                int notificacionId1 = notificacioncen.Nuevo (emailUsuarioNuevo, "Tu mascota Firulais ha recibido una nueva valoracion.");
                 Console.WriteLine ("Notificacion 1 creada correctamente");
 
                 // Envío de correo para la notificación

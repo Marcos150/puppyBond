@@ -43,7 +43,7 @@ private Nullable<DateTime> fecha;
 /**
  *	Atributo notificacionesEnviadaMsj
  */
-private System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.NotificacionEN> notificacionesEnviadaMsj;
+private TestGen.ApplicationCore.EN.DSM.NotificacionEN notificacionesEnviadaMsj;
 
 
 
@@ -80,7 +80,7 @@ public virtual Nullable<DateTime> Fecha {
 
 
 
-public virtual System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.NotificacionEN> NotificacionesEnviadaMsj {
+public virtual TestGen.ApplicationCore.EN.DSM.NotificacionEN NotificacionesEnviadaMsj {
         get { return notificacionesEnviadaMsj; } set { notificacionesEnviadaMsj = value;  }
 }
 
@@ -90,12 +90,11 @@ public virtual System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.N
 
 public MensajeEN()
 {
-        notificacionesEnviadaMsj = new System.Collections.Generic.List<TestGen.ApplicationCore.EN.DSM.NotificacionEN>();
 }
 
 
 
-public MensajeEN(int id, string contenido, TestGen.ApplicationCore.EN.DSM.UsuarioEN emisor, TestGen.ApplicationCore.EN.DSM.UsuarioEN receptor, Nullable<DateTime> fecha, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.NotificacionEN> notificacionesEnviadaMsj
+public MensajeEN(int id, string contenido, TestGen.ApplicationCore.EN.DSM.UsuarioEN emisor, TestGen.ApplicationCore.EN.DSM.UsuarioEN receptor, Nullable<DateTime> fecha, TestGen.ApplicationCore.EN.DSM.NotificacionEN notificacionesEnviadaMsj
                  )
 {
         this.init (Id, contenido, emisor, receptor, fecha, notificacionesEnviadaMsj);
@@ -108,7 +107,7 @@ public MensajeEN(MensajeEN mensaje)
 }
 
 private void init (int id
-                   , string contenido, TestGen.ApplicationCore.EN.DSM.UsuarioEN emisor, TestGen.ApplicationCore.EN.DSM.UsuarioEN receptor, Nullable<DateTime> fecha, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.NotificacionEN> notificacionesEnviadaMsj)
+                   , string contenido, TestGen.ApplicationCore.EN.DSM.UsuarioEN emisor, TestGen.ApplicationCore.EN.DSM.UsuarioEN receptor, Nullable<DateTime> fecha, TestGen.ApplicationCore.EN.DSM.NotificacionEN notificacionesEnviadaMsj)
 {
         this.Id = id;
 

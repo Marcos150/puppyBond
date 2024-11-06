@@ -31,15 +31,10 @@
 			
 			
 		  			
-						<bag name="Mensaje" table="[notificacion_mensaje]"  >
-							<key>
-								
-									<column name="FK_idNotificacion_idNotificacionEnviadaMsj"/> 
-							</key>
-      						<many-to-many class="TestGen.Infraestructure.EN.DSM.MensajeNH">
-									<column name="FK_idMensaje_idMensaje"/> 
-      						</many-to-many>
-    					</bag>
+					
+							   <one-to-one name="Mensaje" class="TestGen.Infraestructure.EN.DSM.MensajeNH" property-ref="NotificacionesEnviadaMsj" />							
+					 
+						
 			
 					
 					

@@ -29,7 +29,7 @@ private int id;
 /**
  *	Atributo mensaje
  */
-private System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MensajeEN> mensaje;
+private TestGen.ApplicationCore.EN.DSM.MensajeEN mensaje;
 
 
 
@@ -61,7 +61,7 @@ public virtual int Id {
 
 
 
-public virtual System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MensajeEN> Mensaje {
+public virtual TestGen.ApplicationCore.EN.DSM.MensajeEN Mensaje {
         get { return mensaje; } set { mensaje = value;  }
 }
 
@@ -77,12 +77,11 @@ public virtual string Contenido {
 
 public NotificacionEN()
 {
-        mensaje = new System.Collections.Generic.List<TestGen.ApplicationCore.EN.DSM.MensajeEN>();
 }
 
 
 
-public NotificacionEN(int id, TestGen.ApplicationCore.EN.DSM.MatchEN matchEnvia, TestGen.ApplicationCore.EN.DSM.UsuarioEN usuarioRecibe, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MensajeEN> mensaje, string contenido
+public NotificacionEN(int id, TestGen.ApplicationCore.EN.DSM.MatchEN matchEnvia, TestGen.ApplicationCore.EN.DSM.UsuarioEN usuarioRecibe, TestGen.ApplicationCore.EN.DSM.MensajeEN mensaje, string contenido
                       )
 {
         this.init (Id, matchEnvia, usuarioRecibe, mensaje, contenido);
@@ -95,7 +94,7 @@ public NotificacionEN(NotificacionEN notificacion)
 }
 
 private void init (int id
-                   , TestGen.ApplicationCore.EN.DSM.MatchEN matchEnvia, TestGen.ApplicationCore.EN.DSM.UsuarioEN usuarioRecibe, System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MensajeEN> mensaje, string contenido)
+                   , TestGen.ApplicationCore.EN.DSM.MatchEN matchEnvia, TestGen.ApplicationCore.EN.DSM.UsuarioEN usuarioRecibe, TestGen.ApplicationCore.EN.DSM.MensajeEN mensaje, string contenido)
 {
         this.Id = id;
 

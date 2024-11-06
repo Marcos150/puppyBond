@@ -128,14 +128,6 @@ public int Nuevo (NotificacionEN notificacion)
         try
         {
                 SessionInitializeTransaction ();
-                if (notificacion.MatchEnvia != null) {
-                        // Argumento OID y no colección.
-                        notificacionNH
-                        .MatchEnvia = (TestGen.ApplicationCore.EN.DSM.MatchEN)session.Load (typeof(TestGen.ApplicationCore.EN.DSM.MatchEN), notificacion.MatchEnvia.Id);
-
-                        notificacionNH.MatchEnvia.NotificacionesEnviadasMatch
-                        .Add (notificacionNH);
-                }
                 if (notificacion.UsuarioRecibe != null) {
                         // Argumento OID y no colección.
                         notificacionNH

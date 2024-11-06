@@ -30,21 +30,13 @@ public INotificacionRepository get_INotificacionRepository ()
         return this._INotificacionRepository;
 }
 
-public int Nuevo (int p_matchEnvia, string p_usuarioRecibe, string p_contenido)
+public int Nuevo (string p_usuarioRecibe, string p_contenido)
 {
         NotificacionEN notificacionEN = null;
         int oid;
 
         //Initialized NotificacionEN
         notificacionEN = new NotificacionEN ();
-
-        if (p_matchEnvia != -1) {
-                // El argumento p_matchEnvia -> Property matchEnvia es oid = false
-                // Lista de oids id
-                notificacionEN.MatchEnvia = new TestGen.ApplicationCore.EN.DSM.MatchEN ();
-                notificacionEN.MatchEnvia.Id = p_matchEnvia;
-        }
-
 
         if (p_usuarioRecibe != null) {
                 // El argumento p_usuarioRecibe -> Property usuarioRecibe es oid = false

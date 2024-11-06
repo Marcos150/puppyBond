@@ -20,8 +20,9 @@ public void EnviarCorreo (int p_oid)
         /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Notificacion_enviarCorreo) ENABLED START*/
 
         // Write here your custom code...
-        NotificacionEN notificacionEn = _INotificacionRepository.LeerOID(p_oid);
-        EmailUtils.SendEmail(notificacionEn.UsuarioRecibe.Email, "¡Tienes una nueva notificación!", notificacionEn.Contenido);
+        NotificacionEN notificacionEn = _INotificacionRepository.LeerOID (p_oid);
+
+        EmailUtils.SendEmail (notificacionEn.UsuarioRecibe.Email, "¡Tienes una nueva notificación!", notificacionEn.Contenido);
         Console.WriteLine ("Correo de notificación enviado");
 
         //throw new NotImplementedException ("Method EnviarCorreo() not yet implemented.");

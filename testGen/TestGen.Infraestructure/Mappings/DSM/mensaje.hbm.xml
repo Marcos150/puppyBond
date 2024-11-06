@@ -36,15 +36,12 @@
 			
 			
 		  			
-						<bag name="NotificacionesEnviadaMsj" table="[notificacion_mensaje]" inverse="true" >
-							<key>
-								
-									<column name="FK_idMensaje_idMensaje"/> 
-							</key>
-      						<many-to-many class="TestGen.Infraestructure.EN.DSM.NotificacionNH">
-									<column name="FK_idNotificacion_idNotificacionEnviadaMsj"/> 
-      						</many-to-many>
-    					</bag>
+					
+							<many-to-one name="NotificacionesEnviadaMsj" class="TestGen.Infraestructure.EN.DSM.NotificacionNH" >
+								<column name="FK_idNotificacion_idNotificacionEnviadaMsj"/> 
+        					</many-to-one>
+					 
+						
 					
 					
 					
