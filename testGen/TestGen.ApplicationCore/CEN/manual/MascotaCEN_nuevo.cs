@@ -17,7 +17,7 @@ public partial class MascotaCEN
 {
 public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_duenyo, string p_descripcion, double p_valoracionMedia)
 {
-        /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Mascota_nuevo_customized) START*/
+        /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Mascota_nuevo_customized) ENABLED START*/
 
         MascotaEN mascotaEN = null;
 
@@ -49,9 +49,9 @@ public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumer
 
         mascotaEN.Imagen = "default.png";
 
-            //Call to MascotaRepository
+        //Call to MascotaRepository
 
-            oid = _IMascotaRepository.Nuevo (mascotaEN);
+        oid = _IMascotaRepository.Nuevo (mascotaEN);
         return oid;
         /*PROTECTED REGION END*/
 }

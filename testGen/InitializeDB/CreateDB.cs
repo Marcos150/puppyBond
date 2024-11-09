@@ -101,26 +101,37 @@ public static void InitializeData ()
 
                 /*PROTECTED REGION ID(initializeDataMethod) ENABLED START*/
 
+                static void ImprimirVerde (string txt)
+                {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine (txt);
+                        Console.ResetColor ();
+                }
+
                 // You must write the initialisation of the entities inside the PROTECTED comments.
                 // IMPORTANT:please do not delete them.
 
                 // Creacion de usuario
                 string emailUsuarioNuevo = usuariocen.Nuevo ("Elsa", "Pato", "elsapatitio@example.com", "Elsa", "Siempre", "Alicante");
-                Console.WriteLine ("Se crea el usuario correctamente");
+                string emailUsuarioNuevo2 = usuariocen.Nuevo ("Paco", "Pato", "32432432@example.com", "Elsa", "Siempre", "Alicante");
+                ImprimirVerde ("Usuario creado correctamente");
                 //Login
                 if (usuariocen.Login (emailUsuarioNuevo, "Elsa") != null)
-                        Console.WriteLine ("El login es correcto");
+                        ImprimirVerde ("El login es correcto");
 
                 // Creacion de mascotas
                 int mascotaId1 = mascotacen.Nuevo ("Firulais", "Labrador", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho,
                         "Vacunado", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.mediano,
                         "3 anyos", emailUsuarioNuevo, "Un perro jugueton y amigable", 4.5);
-                Console.WriteLine ("Mascota 1 creada correctamente");
+                ImprimirVerde ("Mascota 1 creada correctamente");
 
                 int mascotaId2 = mascotacen.Nuevo ("Luna", "Golden Retriever", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Hembra,
                         "Vacunada", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande,
-                        "2 anyos", emailUsuarioNuevo, "Una perrita carinyosa y tranquila", 5.0);
-                Console.WriteLine ("Mascota 2 creada correctamente");
+                        "2 anyos", emailUsuarioNuevo2, "Una perrita carinyosa y tranquila", 5.0);
+                ImprimirVerde ("Mascota 2 creada correctamente");
+
+                int matchId = matchcen.Nuevo (mascotaId1, mascotaId2, "Alicante");
+                matchcen.Modificar (matchId, TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado, "Alicante");
 
                 // Filtros custom
                 mascotacen.LeerPorRaza ("Labrador");
@@ -129,27 +140,27 @@ public static void InitializeData ()
 
                 // Creacion de mensajes
                 int mensajeId1 = mensajecen.Nuevo ("Hola, estoy interesado en Firulais. ¿Sigue disponible?", emailUsuarioNuevo, emailUsuarioNuevo);
-                Console.WriteLine ("Mensaje 1 creado correctamente");
+                ImprimirVerde ("Mensaje 1 creado correctamente");
 
                 // Creacion de matches
                 int matchId1 = matchcen.Nuevo (mascotaId1, mascotaId2, "Alicante");
-                Console.WriteLine ("Match 1 creado correctamente");
+                ImprimirVerde ("Match 1 creado correctamente");
 
                 // Creacion de valoraciones
                 int valoracionId1 = valoracioncen.Nuevo (mascotaId1, emailUsuarioNuevo, 5);
-                Console.WriteLine ("Valoracion 1 creada correctamente");
+                ImprimirVerde ("Valoracion 1 creada correctamente");
 
                 // Creacion de notificaciones
                 int notificacionId1 = notificacioncen.Nuevo (emailUsuarioNuevo, "Tu mascota Firulais ha recibido una nueva valoracion.");
-                Console.WriteLine ("Notificacion 1 creada correctamente");
+                ImprimirVerde ("Notificacion 1 creada correctamente");
 
                 // Envío de correo para la notificación
                 notificacioncen.EnviarCorreo (notificacionId1);
-                Console.WriteLine ("Correo de notificación enviado correctamente");
+                ImprimirVerde ("Correo de notificación enviado correctamente");
 
                 // Creacion de tiques de soporte
                 int tiqueId1 = tiquesoportecen.Nuevo (emailUsuarioNuevo, "Problema con la visualizacion de mascotas.");
-                Console.WriteLine ("Tique de soporte 1 creado correctamente");
+                ImprimirVerde ("Tique de soporte 1 creado correctamente");
 
                 // Envio correo soporte
                 tiquesoportecen.EnviarCorreoSoporte (tiqueId1);

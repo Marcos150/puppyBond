@@ -110,6 +110,6 @@
 		 </class>	
 		  
 		  <query name="UsuarioNHReadAllHQL">from UsuarioNH</query>
-		  <query name="UsuarioNHobtenerUsuariosMatcheadosHQL"><![CDATA[select usu FROM UsuarioNH as usu ]]></query>
+		  <query name="UsuarioNHobtenerUsuariosMatcheadosHQL"><![CDATA[SELECT u2 FROM UsuarioNH u1 JOIN u1.Mascota m1 JOIN m1.MatchEnviados match JOIN match.MascotaRecibe m2 JOIN m2.Duenyo u2 WHERE u1.Email = :p_usu_OID AND match.Estado = 3]]></query>
 		</hibernate-mapping>
 	

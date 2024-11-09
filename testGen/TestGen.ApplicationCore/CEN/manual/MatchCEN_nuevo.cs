@@ -40,9 +40,9 @@ public int Nuevo (int p_mascotaEnvia, int p_mascotaRecibe, string p_ubicacion)
         matchEN.Ubicacion = p_ubicacion;
         matchEN.Estado = Enumerated.DSM.EstadoMatchEnum.pendiente;
 
-            //Call to MatchRepository
+        //Call to MatchRepository
 
-            oid = _IMatchRepository.Nuevo (matchEN);
+        oid = _IMatchRepository.Nuevo (matchEN);
         return oid;
         /*PROTECTED REGION END*/
 }

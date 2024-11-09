@@ -17,7 +17,7 @@ public partial class MensajeCEN
 {
 public int Nuevo (string p_contenido, string p_emisor, string p_receptor)
 {
-        /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Mensaje_nuevo_customized) START*/
+        /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Mensaje_nuevo_customized) ENABLED START*/
 
         MensajeEN mensajeEN = null;
 
@@ -41,9 +41,9 @@ public int Nuevo (string p_contenido, string p_emisor, string p_receptor)
 
         mensajeEN.Fecha = DateTime.Now;
 
-            //Call to MensajeRepository
+        //Call to MensajeRepository
 
-            oid = _IMensajeRepository.Nuevo (mensajeEN);
+        oid = _IMensajeRepository.Nuevo (mensajeEN);
         return oid;
         /*PROTECTED REGION END*/
 }

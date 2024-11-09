@@ -22,34 +22,49 @@ public void CambiarFoto (int p_oid, string imagen)
 {
         /*PROTECTED REGION ID(TestGen.ApplicationCore.CP.DSM_Mascota_cambiarFoto) ENABLED START*/
 
-        MascotaCEN mascotaCEN = null;
+         MascotaCEN mascotaCEN = null;
 
+            try
+            {
+                // Iniciar la transacción
+                CPSession.SessionInitializeTransaction();
+                mascotaCEN = new MascotaCEN(CPSession.UnitRepo.MascotaRepository);
 
+                // Obtener la mascota por su ID
+                MascotaEN mascota = mascotaCEN.LeerOID(p_oid);
+                if (mascota == null)
+                {
+                    throw new Exception("Mascota no encontrada");
+                }
 
-        try
-        {
-                CPSession.SessionInitializeTransaction ();
-                mascotaCEN = new  MascotaCEN (CPSession.UnitRepo.MascotaRepository);
+                // Asignar la nueva foto a la mascota utilizando el método Modificar
+                mascotaCEN.Modificar(
+                    p_Mascota_OID: p_oid,
+                    p_nombre: mascota.Nombre,
+                    p_raza: mascota.Raza,
+                    p_sexo: mascota.Sexo,
+                    p_vacunacion: mascota.Vacunacion,
+                    p_tamanyo: mascota.Tamanyo,
+                    p_edad: mascota.Edad,
+                    p_descripcion: mascota.Descripcion,
+                    p_valoracionMedia: mascota.ValoracionMedia,
+                    p_imagen: imagen // Aquí se asigna la nueva imagen
+                );
 
-
-
-                // Write here your custom transaction ...
-
-                throw new NotImplementedException ("Method CambiarFoto() not yet implemented.");
-
-
-
-                CPSession.Commit ();
-        }
-        catch (Exception ex)
-        {
-                CPSession.RollBack ();
+                // Confirmar la transacción
+                CPSession.Commit();
+            }
+            catch (Exception ex)
+            {
+                // Revertir la transacción en caso de error
+                CPSession.RollBack();
                 throw ex;
-        }
-        finally
-        {
-                CPSession.SessionClose ();
-        }
+            }
+            finally
+            {
+                // Cerrar la sesión
+                CPSession.SessionClose();
+            }
 
 
         /*PROTECTED REGION END*/

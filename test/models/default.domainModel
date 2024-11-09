@@ -29,13 +29,17 @@
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_bqxpiJEyEe-wWvdhHhO-yw" name="p_Usuario_OID" type="OID" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw"/>
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_bqxpiZEyEe-wWvdhHhO-yw" name="p_pass"/>
       </operations>
-      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_MUzisJXgEe-3RKmtzn0eGg" name="obtenerUsuariosMatcheados" operationType="ReadFilter" type="Object" collectionType="List" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw" filter="select usu FROM UsuarioNH as usu " automaticSynchronize="false">
+      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_MUzisJXgEe-3RKmtzn0eGg" name="obtenerUsuariosMatcheados" operationType="ReadFilter" type="Object" collectionType="List" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw" filter="SELECT u2 FROM UsuarioNH u1 JOIN u1.Mascota m1 JOIN m1.MatchEnviados match JOIN match.MascotaRecibe m2 JOIN m2.Duenyo u2 WHERE u1.Email = :p_usu_OID AND match.Estado = 3" automaticSynchronize="false">
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_Ch2skJtfEe-eHqvh0xm8Kg" name="p_usu_OID" type="OID" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw"/>
       </operations>
       <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_oZpNkJteEe-eHqvh0xm8Kg" name="enviarMensaje" operationType="CustomTransaction" type="Void">
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_oZsQ4JteEe-eHqvh0xm8Kg" name="p_oid" type="OID" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw"/>
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_sIZ-UJteEe-eHqvh0xm8Kg" name="receptor" type="Object" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw"/>
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_wV6gkJteEe-eHqvh0xm8Kg" name="contenido"/>
+      </operations>
+      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_2NhAsJ7NEe-o95HODc6THw" name="ponerResenya" operationType="CustomTransaction" type="Void">
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_2N0isJ7NEe-o95HODc6THw" name="p_oid" type="OID" typeObject="_hcWB0IrXEe-ZMpBD3AnAxw"/>
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="__zte4J7NEe-o95HODc6THw" name="valor_resenya" type="Integer"/>
       </operations>
       <attributes xmi:type="es.ua.dlsi.ooh:Attribute" xmi:id="_iYvYoIrXEe-ZMpBD3AnAxw" alias="nombre" name="nombre"/>
       <attributes xmi:type="es.ua.dlsi.ooh:Attribute" xmi:id="_kdoBgIrXEe-ZMpBD3AnAxw" alias="apellidos" name="apellidos"/>
@@ -359,6 +363,13 @@
           <styles xmi:type="notation:FontStyle" xmi:id="_oZs38pteEe-eHqvh0xm8Kg" fontName="Segoe UI"/>
           <styles xmi:type="notation:FillStyle" xmi:id="_oZs385teEe-eHqvh0xm8Kg"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oZs39JteEe-eHqvh0xm8Kg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_2PA1gJ7NEe-o95HODc6THw" type="3004" element="_2NhAsJ7NEe-o95HODc6THw">
+          <children xmi:type="notation:DecorationNode" xmi:id="_2PBckJ7NEe-o95HODc6THw" type="5004"/>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_2PA1gZ7NEe-o95HODc6THw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_2PA1gp7NEe-o95HODc6THw" fontName="Segoe UI"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_2PA1g57NEe-o95HODc6THw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2PA1hJ7NEe-o95HODc6THw"/>
         </children>
         <styles xmi:type="notation:SortingStyle" xmi:id="_hcoVuorXEe-ZMpBD3AnAxw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_hcoVu4rXEe-ZMpBD3AnAxw"/>

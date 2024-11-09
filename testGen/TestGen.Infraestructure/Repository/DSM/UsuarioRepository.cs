@@ -289,7 +289,7 @@ public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.UsuarioEN
         try
         {
                 SessionInitializeTransaction ();
-                //String sql = @"FROM UsuarioNH self where select usu FROM UsuarioNH as usu ";
+                //String sql = @"FROM UsuarioNH self where SELECT u2 FROM UsuarioNH u1 JOIN u1.Mascota m1 JOIN m1.MatchEnviados match JOIN match.MascotaRecibe m2 JOIN m2.Duenyo u2 WHERE u1.Email = :p_usu_OID AND match.Estado = 3";
                 //IQuery query = session.CreateQuery(sql);
                 IQuery query = (IQuery)session.GetNamedQuery ("UsuarioNHobtenerUsuariosMatcheadosHQL");
                 query.SetParameter ("p_usu_OID", p_usu_OID);
