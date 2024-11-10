@@ -12,6 +12,9 @@ using TestGen.ApplicationCore.CEN.DSM;
 
 /*PROTECTED REGION ID(usingTestGen.ApplicationCore.CP.DSM_Usuario_enviarMensaje) ENABLED START*/
 //  references to other libraries
+
+using System.Linq;
+
 /*PROTECTED REGION END*/
 
 namespace TestGen.ApplicationCore.CP.DSM
@@ -37,7 +40,15 @@ public void EnviarMensaje (string p_oid, string receptor, string contenido)
 
                 // Verificar que el emisor y receptor no sean nulos
                 if (emisorEN == null || receptor == null) {
-                        throw new Exception ("Emisor o receptor no v�lido.");
+                        throw new Exception ("Emisor o receptor no valido.");
+                }
+
+                IList<UsuarioEN> usuariosMatcheadosEmisor = usuarioCEN.ObtenerUsuariosMatcheados(p_oid);
+
+                //Comprueba que el emisor este matcheado con el receptor
+                if (!usuariosMatcheadosEmisor.Where(usu => usu.Email == receptor).Any())
+                {
+                    throw new Exception("El receptor no esta matcheado con el emisor");
                 }
 
                 // Crear el mensaje utilizando MensajeCEN

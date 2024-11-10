@@ -173,12 +173,12 @@ public static void InitializeData ()
                         ImprimirVerde ("El login es correcto");
 
                 //Customs de mascota
-                mascotacen.CambiarFoto(mascotaId1, "nuevaFoto.png");
-                ImprimirVerde("Foto de mascota 1 cambiada correctamente");
+                mascotacen.CambiarFoto (mascotaId1, "nuevaFoto.png");
+                ImprimirVerde ("Foto de mascota 1 cambiada correctamente");
 
                 //Customs de notificacion
-                notificacioncen.EnviarCorreo(notificacionId1);
-                ImprimirVerde("Correo de notificacion enviado correctamente");
+                notificacioncen.EnviarCorreo (notificacionId1);
+                ImprimirVerde ("Correo de notificacion enviado correctamente");
 
                 //Customs de tique de soporte
                 tiquesoportecen.EnviarCorreoSoporte (tiqueId1);
