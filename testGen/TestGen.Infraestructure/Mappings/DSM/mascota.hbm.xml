@@ -33,9 +33,6 @@
 					<property name="Descripcion" type="string"> 
 						<column name="descripcion"  not-null="true"/>
 					</property>
-					<property name="ValoracionMedia" type="double"> 
-						<column name="valoracionMedia"  not-null="true"/>
-					</property>
 					<property name="Imagen" type="string"> 
 						<column name="imagen"  not-null="true"/>
 					</property>
@@ -88,8 +85,6 @@
 					    </bag>
 					
 			
-			
-					
 					
 					
 					

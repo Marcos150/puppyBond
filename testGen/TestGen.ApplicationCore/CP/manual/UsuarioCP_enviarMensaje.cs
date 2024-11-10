@@ -16,54 +16,54 @@ using TestGen.ApplicationCore.CEN.DSM;
 
 namespace TestGen.ApplicationCore.CP.DSM
 {
-    public partial class UsuarioCP : GenericBasicCP
-    {
-        public void EnviarMensaje(string p_oid, UsuarioEN receptor, string contenido)
+public partial class UsuarioCP : GenericBasicCP
+{
+public void EnviarMensaje (string p_oid, string receptor, string contenido)
+{
+        /*PROTECTED REGION ID(TestGen.ApplicationCore.CP.DSM_Usuario_enviarMensaje) ENABLED START*/
+
+        UsuarioCEN usuarioCEN = null;
+        MensajeCEN mensajeCEN = null;
+
+        try
         {
-            /*PROTECTED REGION ID(TestGen.ApplicationCore.CP.DSM_Usuario_enviarMensaje) ENABLED START*/
+                // Inicia la sesion de transaccion
+                CPSession.SessionInitializeTransaction ();
 
-            UsuarioCEN usuarioCEN = null;
-            MensajeCEN mensajeCEN = null;
-
-            try
-            {
-                // Inicia la sesión de transacción
-                CPSession.SessionInitializeTransaction();
-
-                // Obtén el usuario emisor usando su ID
-                usuarioCEN = new UsuarioCEN(CPSession.UnitRepo.UsuarioRepository);
-                UsuarioEN emisor = usuarioCEN.LeerOID(p_oid);
+                // Obten el usuario emisor y receptor usando su ID
+                usuarioCEN = new UsuarioCEN (CPSession.UnitRepo.UsuarioRepository);
+                UsuarioEN emisorEN = usuarioCEN.LeerOID (p_oid);
+                UsuarioEN receptorEN = usuarioCEN.LeerOID (receptor);
 
                 // Verificar que el emisor y receptor no sean nulos
-                if (emisor == null || receptor == null)
-                {
-                    throw new Exception("Emisor o receptor no válido.");
+                if (emisorEN == null || receptor == null) {
+                        throw new Exception ("Emisor o receptor no vï¿½lido.");
                 }
 
                 // Crear el mensaje utilizando MensajeCEN
-                mensajeCEN = new MensajeCEN(CPSession.UnitRepo.MensajeRepository);
-                int mensajeId = mensajeCEN.Nuevo(contenido, emisor.Email, receptor.Email);
+                mensajeCEN = new MensajeCEN (CPSession.UnitRepo.MensajeRepository);
+                int mensajeId = mensajeCEN.Nuevo (contenido, emisorEN.Email, receptorEN.Email);
 
-                // Añadir el mensaje a las listas de mensajes emitidos y recibidos
-                MensajeEN mensaje = mensajeCEN.LeerOID(mensajeId);
-                emisor.MensajesEmitidos.Add(mensaje);
-                receptor.MensajesRecibidos.Add(mensaje);
+                // Anyadir el mensaje a las listas de mensajes emitidos y recibidos
+                MensajeEN mensaje = mensajeCEN.LeerOID (mensajeId);
+                emisorEN.MensajesEmitidos.Add (mensaje);
+                receptorEN.MensajesRecibidos.Add (mensaje);
 
                 // Guardar cambios
-                CPSession.Commit();
-            }
-            catch (Exception ex)
-            {
-                CPSession.RollBack();
-                throw ex;
-            }
-            finally
-            {
-                CPSession.SessionClose();
-            }
-
-
-            /*PROTECTED REGION END*/
+                CPSession.Commit ();
         }
-    }
+        catch (Exception ex)
+        {
+                CPSession.RollBack ();
+                throw ex;
+        }
+        finally
+        {
+                CPSession.SessionClose ();
+        }
+
+
+        /*PROTECTED REGION END*/
+}
+}
 }

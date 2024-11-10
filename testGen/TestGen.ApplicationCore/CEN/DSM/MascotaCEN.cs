@@ -30,7 +30,7 @@ public IMascotaRepository get_IMascotaRepository ()
         return this._IMascotaRepository;
 }
 
-public void Modificar (int p_Mascota_OID, string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_descripcion, double p_valoracionMedia, string p_imagen)
+public void Modificar (int p_Mascota_OID, string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_descripcion, string p_imagen)
 {
         MascotaEN mascotaEN = null;
 
@@ -44,7 +44,6 @@ public void Modificar (int p_Mascota_OID, string p_nombre, string p_raza, TestGe
         mascotaEN.Tamanyo = p_tamanyo;
         mascotaEN.Edad = p_edad;
         mascotaEN.Descripcion = p_descripcion;
-        mascotaEN.ValoracionMedia = p_valoracionMedia;
         mascotaEN.Imagen = p_imagen;
         //Call to MascotaRepository
 

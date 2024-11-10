@@ -111,59 +111,88 @@ public static void InitializeData ()
                 // You must write the initialisation of the entities inside the PROTECTED comments.
                 // IMPORTANT:please do not delete them.
 
+                // CREACION DE ENTIDADES
+
                 // Creacion de usuario
                 string emailUsuarioNuevo = usuariocen.Nuevo ("Elsa", "Pato", "elsapatitio@example.com", "Elsa", "Siempre", "Alicante");
-                string emailUsuarioNuevo2 = usuariocen.Nuevo ("Paco", "Pato", "32432432@example.com", "Elsa", "Siempre", "Alicante");
-                ImprimirVerde ("Usuario creado correctamente");
-                //Login
-                if (usuariocen.Login (emailUsuarioNuevo, "Elsa") != null)
-                        ImprimirVerde ("El login es correcto");
+                ImprimirVerde ("Usuario1 creado correctamente");
+                string emailUsuarioNuevo2 = usuariocen.Nuevo ("Paco", "Pato", "32432432@example.com", "Paco", "Siempre", "Alicante");
+                ImprimirVerde ("Usuario2 creado correctamente");
 
-                // Creacion de mascotas
+                // Creacion de mascotas (CRUD CUSTOMIZADA)
                 int mascotaId1 = mascotacen.Nuevo ("Firulais", "Labrador", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho,
                         "Vacunado", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.mediano,
-                        "3 anyos", emailUsuarioNuevo, "Un perro jugueton y amigable", 4.5);
+                        "3 anyos", emailUsuarioNuevo, "Un perro jugueton y amigable");
                 ImprimirVerde ("Mascota 1 creada correctamente");
 
                 int mascotaId2 = mascotacen.Nuevo ("Luna", "Golden Retriever", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Hembra,
                         "Vacunada", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande,
-                        "2 anyos", emailUsuarioNuevo2, "Una perrita carinyosa y tranquila", 5.0);
+                        "2 anyos", emailUsuarioNuevo2, "Una perrita carinyosa y tranquila");
                 ImprimirVerde ("Mascota 2 creada correctamente");
 
+                // Creacion de matches (CRUD CUSTOMIZADA)
                 int matchId = matchcen.Nuevo (mascotaId1, mascotaId2, "Alicante");
                 matchcen.Modificar (matchId, TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado, "Alicante");
+                ImprimirVerde ("Match entre Mascota 1 y Mascota 2 creado y modificado a aceptado correctamente");
 
-                // Filtros custom
-                mascotacen.LeerPorRaza ("Labrador");
-                mascotacen.LeerPorSexo (TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho);
-                mascotacen.LeerPorTamanyo (TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande);
-
-                // Creacion de mensajes
-                int mensajeId1 = mensajecen.Nuevo ("Hola, estoy interesado en Firulais. ¿Sigue disponible?", emailUsuarioNuevo, emailUsuarioNuevo);
-                ImprimirVerde ("Mensaje 1 creado correctamente");
-
-                // Creacion de matches
-                int matchId1 = matchcen.Nuevo (mascotaId1, mascotaId2, "Alicante");
-                ImprimirVerde ("Match 1 creado correctamente");
+                // Creacion de mensajes (CRUD CUSTOMIZADA)
+                //TODO: comprobar en mensajeNuevo que los usuarios estan matcheados
+                int mensajeId1 = mensajecen.Nuevo ("Hola, estoy interesado en Firulais. ¿Sigue disponible?", emailUsuarioNuevo, emailUsuarioNuevo2);
+                ImprimirVerde ("Mensaje 1 de usuario 1 a usuario 2 creado correctamente");
 
                 // Creacion de valoraciones
-                int valoracionId1 = valoracioncen.Nuevo (mascotaId1, emailUsuarioNuevo, 5);
-                ImprimirVerde ("Valoracion 1 creada correctamente");
+                int valoracionId1 = valoracioncen.Nuevo (mascotaId2, emailUsuarioNuevo, 5);
+                ImprimirVerde ("Valoracion 1 de usuario 1 a mascota 2 creada correctamente");
 
                 // Creacion de notificaciones
                 int notificacionId1 = notificacioncen.Nuevo (emailUsuarioNuevo, "Tu mascota Firulais ha recibido una nueva valoracion.");
-                ImprimirVerde ("Notificacion 1 creada correctamente");
-
-                // Envío de correo para la notificación
-                notificacioncen.EnviarCorreo (notificacionId1);
-                ImprimirVerde ("Correo de notificación enviado correctamente");
+                ImprimirVerde ("Notificacion 1 de usuario 1 creada correctamente");
 
                 // Creacion de tiques de soporte
                 int tiqueId1 = tiquesoportecen.Nuevo (emailUsuarioNuevo, "Problema con la visualizacion de mascotas.");
-                ImprimirVerde ("Tique de soporte 1 creado correctamente");
+                ImprimirVerde ("Tique de soporte 1 de usuario 1 creado correctamente");
 
-                // Envio correo soporte
+                // READFILTERS
+
+                //ReadFilter de usuarios
+                UsuarioEN usuMatcheado = usuariocen.ObtenerUsuariosMatcheados (emailUsuarioNuevo) [0];
+                ImprimirVerde ("Primer usuario matcheado de Usuario 1: " + usuMatcheado.Nombre);
+
+                //ReadFilter de mascotas
+                MascotaEN labrador = mascotacen.LeerPorRaza ("Labrador") [0];
+                ImprimirVerde ("Primer labrador en la BD: " + labrador.Nombre);
+                MascotaEN macho = mascotacen.LeerPorSexo (TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho) [0];
+                ImprimirVerde ("Primer macho en la BD: " + macho.Nombre);
+                MascotaEN grande = mascotacen.LeerPorTamanyo (TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande) [0];
+                ImprimirVerde ("Primer perro grande en la BD: " + grande.Nombre);
+
+                // CUSTOMS
+
+                //Customs de usuario
+                if (usuariocen.Login (emailUsuarioNuevo, "Elsa") != null)
+                        ImprimirVerde ("El login es correcto");
+
+                //Customs de mascota
+                mascotacen.CambiarFoto(mascotaId1, "nuevaFoto.png");
+                ImprimirVerde("Foto de mascota 1 cambiada correctamente");
+
+                //Customs de notificacion
+                notificacioncen.EnviarCorreo(notificacionId1);
+                ImprimirVerde("Correo de notificacion enviado correctamente");
+
+                //Customs de tique de soporte
                 tiquesoportecen.EnviarCorreoSoporte (tiqueId1);
+                ImprimirVerde ("Correo de tique de soporte enviado correctamente");
+
+                // CUSTOM TRANSACTIONS
+
+                //Custom transactions de usuario
+                UsuarioCP usuarioCP = new(new SessionCPNHibernate ());
+                usuarioCP.EnviarMensaje (emailUsuarioNuevo, emailUsuarioNuevo2, "Hola, ¿Qué tal?");
+                ImprimirVerde ("Mensaje enviado de usuario 1 a usuario 2 correctamente");
+                usuarioCP.PonerValoracion (emailUsuarioNuevo, 7, mascotaId2);
+                ImprimirVerde ("Valoracion de usuario 1 a mascota 2 puesta correctamente");
+
 
                 /*PROTECTED REGION END*/
         }

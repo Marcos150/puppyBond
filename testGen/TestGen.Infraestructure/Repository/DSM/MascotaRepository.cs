@@ -122,9 +122,6 @@ public void ModifyDefault (MascotaEN mascota)
 
 
 
-                mascotaNH.ValoracionMedia = mascota.ValoracionMedia;
-
-
                 mascotaNH.Imagen = mascota.Imagen;
 
                 session.Update (mascotaNH);
@@ -208,9 +205,6 @@ public void Modificar (MascotaEN mascota)
 
 
                 mascotaNH.Descripcion = mascota.Descripcion;
-
-
-                mascotaNH.ValoracionMedia = mascota.ValoracionMedia;
 
 
                 mascotaNH.Imagen = mascota.Imagen;

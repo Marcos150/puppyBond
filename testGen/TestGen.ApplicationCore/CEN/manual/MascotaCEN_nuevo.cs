@@ -15,7 +15,7 @@ namespace TestGen.ApplicationCore.CEN.DSM
 {
 public partial class MascotaCEN
 {
-public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_duenyo, string p_descripcion, double p_valoracionMedia)
+public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum p_sexo, string p_vacunacion, TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum p_tamanyo, string p_edad, string p_duenyo, string p_descripcion)
 {
         /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Mascota_nuevo_customized) ENABLED START*/
 
@@ -44,8 +44,6 @@ public int Nuevo (string p_nombre, string p_raza, TestGen.ApplicationCore.Enumer
         }
 
         mascotaEN.Descripcion = p_descripcion;
-
-        mascotaEN.ValoracionMedia = p_valoracionMedia;
 
         mascotaEN.Imagen = "default.png";
 
