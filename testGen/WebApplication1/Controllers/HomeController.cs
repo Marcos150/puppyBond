@@ -4,10 +4,11 @@ using WebApplication1.Models;
 using TestGen.Infraestructure.Repository.DSM;
 using TestGen.ApplicationCore.CEN.DSM;
 using TestGen.ApplicationCore.EN.DSM;
+using WebRentacar.Controllers;
 
 namespace WebApplication1.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BasicController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -26,6 +27,11 @@ namespace WebApplication1.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Principal()
         {
             return View();
         }

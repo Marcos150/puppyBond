@@ -1,40 +1,43 @@
 ﻿@model IEnumerable<TestGen.ApplicationCore.EN.DSM.UsuarioEN>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "PuppyBond";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <table>
-        <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellidos)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container">
+    <!-- Encabezado con logo y botones -->
+    <header class="d-flex justify-content-between align-items-center my-3">
+        <h1 class="logo">Puppy<span style="color: #ff6f61;">B<span style="font-size: 1.5em;">🐾</span>ND</span></h1>
+        <div>
+            <a href="/Home/CrearCuenta" class="btn btn-primary mx-2">Crear Cuenta</a>
+            <a href="/Home/IniciarSesion" class="btn btn-secondary">Iniciar Sesión</a>
+        </div>
+    </header>
+
+    <!-- Barra de búsqueda -->
+    <div class="input-group mb-4">
+        <input type="text" class="form-control" placeholder="Buscar">
+        <button class="btn btn-outline-secondary">🔍</button>
+    </div>
+
+    <!-- Carrusel de perros -->
+    <div class="text-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-link" aria-label="Anterior">⬅</button>
+            <div class="dog-card mx-3">
+                <img src="/images/placeholder.png" alt="Foto de perro" class="img-fluid">
+                <div class="info">
+                    <h3>Nombre Perro <span class="badge bg-secondary">Raza</span></h3>
+                    <p>Descripción breve del perro...</p>
+                    <p><strong>Dueño:</strong> <span class="text-muted">Nombre del Dueño</span></p>
+                </div>
+                <!-- Iconos de acción -->
+                <div class="actions d-flex justify-content-around">
+                    <button class="btn btn-outline-danger" aria-label="Eliminar">❌</button>
+                    <button class="btn btn-outline-primary" aria-label="Adoptar">🐾</button>
+                    <button class="btn btn-outline-info" aria-label="Información">ℹ</button>
+                </div>
+            </div>
+            <button class="btn btn-link" aria-label="Siguiente">➡</button>
+        </div>
+    </div>
 </div>

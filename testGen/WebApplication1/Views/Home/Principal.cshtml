@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TestGen.ApplicationCore.EN.DSM.UsuarioEN>
+@{
+    ViewData["Title"] = "PuppyBond";
+}
+
+<div class="text-center">
+    <!-- Logo de la página -->
+    <img src="imgs/logo.jpeg" alt="PuppyBond Logo" style="margin-bottom: 20px;" />
+    <h1 class="display-4">PUPPY<span style="color: #FF69B4;">B<span style="font-size: 30px;">🐾</span>ND</span></h1>
+
+    <!-- Botones principales -->
+    <div style="margin-top: 30px;">
+        <button onclick="window.location.href='@Url.Action("Index", "Home")'" class="btn btn-primary" style="margin: 5px;">Sin Registro</button>
+        <button onclick="window.location.href='@Url.Action("Register", "Account")'" class="btn btn-primary" style="margin: 5px;">Crear Cuenta</button>
+    </div>
+
+    <!-- Botón de iniciar sesión -->
+    <div style="position: absolute; top: 20px; right: 20px;">
+        <button onclick="window.location.href='@Url.Action("Login", "Account")'" class="btn btn-primary">Iniciar Sesión</button>
+    </div>
+</div>
+
