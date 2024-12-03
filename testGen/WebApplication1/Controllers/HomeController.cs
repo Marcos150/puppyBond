@@ -46,6 +46,22 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult Index2()
+        {
+            return View();
+        }
+
+        public IActionResult login()
+        {
+            return View();
+        }
+
+        public IActionResult Perfil_ajeno()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

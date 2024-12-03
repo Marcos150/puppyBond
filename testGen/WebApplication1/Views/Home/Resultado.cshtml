@@ -1,1 +1,85 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <!-- Header con logo y botones -->
+    <header class="d-flex justify-content-between align-items-center py-3">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="PuppyBond" class="img-fluid" />
+        </div>
+        <div class="buttons">
+            <a href="/Account/Register" class="btn btn-primary">Crear Cuenta</a>
+            <a href="/Account/Login" class="btn btn-secondary">Iniciar Sesión</a>
+        </div>
+    </header>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar mb-4">
+        <input type="text" class="form-control" placeholder="Buscar..." />
+    </div>
+
+    <!-- Lista de mascotas -->
+    <div class="pet-list">
+        @for (int i = 0; i < 2; i++) // Ejemplo con 2 mascotas
+        {
+            <div class="pet-card d-flex mb-4 border-bottom pb-3">
+                <!-- Imagen de la mascota -->
+                <div class="pet-image me-3">
+                    <img src="~/images/placeholder.png" alt="Imagen de la mascota" class="img-fluid" />
+                </div>
+                <!-- Información de la mascota -->
+                <div class="pet-info">
+                    <h3 class="pet-name">Nombre Perro</h3>
+                    <p class="pet-breed">Raza</p>
+                    <p class="pet-description">Descripción</p>
+                    <p class="pet-owner">
+                        <i class="fas fa-user"></i> Dueño
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Estilos opcionales -->
+<style>
+    .logo img {
+        max-height: 50px;
+    }
+
+    .search-bar input {
+        max-width: 600px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .pet-card {
+        display: flex;
+        align-items: center;
+    }
+
+    .pet-image img {
+        max-width: 150px;
+        height: auto;
+    }
+
+    .pet-info {
+        flex: 1;
+    }
+
+    .pet-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .pet-breed {
+        font-style: italic;
+        color: #555;
+    }
+
+    .pet-owner {
+        font-size: 0.9rem;
+        color: #666;
+    }
+</style>
