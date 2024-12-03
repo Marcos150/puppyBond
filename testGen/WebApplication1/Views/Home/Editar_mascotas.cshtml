@@ -1,1 +1,123 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Editar_Mascotas";
+}
+
+<div class="container mt-4">
+    <!-- Logo y barra de búsqueda -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="logo">PuppyBond</h1>
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="Buscar">
+        </div>
+        <div class="icons">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-comment"></i>
+            <i class="fas fa-user-circle"></i>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="row">
+        <!-- Galería de imágenes -->
+        <div class="col-md-6">
+            <div class="gallery border rounded p-2">
+                <div class="row">
+                    <!-- Imágenes con opción de eliminar -->
+                    <div class="col-6 mb-2">
+                        <div class="position-relative">
+                            <img src="/path/to/image1.jpg" alt="Imagen 1" class="img-fluid border">
+                            <button class="btn-close position-absolute top-0 end-0"></button>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <div class="position-relative">
+                            <img src="/path/to/image2.jpg" alt="Imagen 2" class="img-fluid border">
+                            <button class="btn-close position-absolute top-0 end-0"></button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="position-relative">
+                            <img src="/path/to/image3.jpg" alt="Imagen 3" class="img-fluid border">
+                            <button class="btn-close position-absolute top-0 end-0"></button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="position-relative">
+                            <img src="/path/to/image4.jpg" alt="Imagen 4" class="img-fluid border">
+                            <button class="btn-close position-absolute top-0 end-0"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-secondary">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles del perro -->
+        <div class="col-md-6">
+            <h2>Nombre Perro <i class="fas fa-pencil-alt"></i></h2>
+            <div class="row mb-3">
+                <div class="col-6">Edad</div>
+                <div class="col-6">Sexo</div>
+                <div class="col-6">Raza</div>
+                <div class="col-6">Tamaño</div>
+            </div>
+            <div class="mb-3">
+                <p>Vacunación <i class="fas fa-pencil-alt"></i></p>
+            </div>
+            <div class="mb-3">
+                <h5>Temperamento y personalidad</h5>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <h5>Disponibilidad <i class="fas fa-pencil-alt"></i></h5>
+                <p>Dueño</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos -->
+<style>
+    .logo {
+        font-family: 'Poppins', sans-serif;
+        color: #FF6F61;
+        font-size: 1.5rem;
+    }
+
+    .search-bar input {
+        width: 300px;
+    }
+
+    .icons i {
+        font-size: 1.2rem;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    .btn-close {
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        line-height: 30px;
+        border-radius: 50%;
+    }
+</style>

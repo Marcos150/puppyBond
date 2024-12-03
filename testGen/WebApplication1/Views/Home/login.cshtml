@@ -1,1 +1,63 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="login-box border rounded p-4" style="max-width: 400px; width: 100%;">
+        <!-- Título -->
+        <h2 class="text-center mb-3">INICIAR SESIÓN</h2>
+
+        <!-- Botón de Google -->
+        <div class="mb-3 text-center">
+            <button class="btn btn-primary w-100" style="background-color: #4285F4; border: none;">
+                <i class="fab fa-google"></i> Iniciar sesión con Google
+            </button>
+        </div>
+        <p class="text-center">O usa tu correo electrónico</p>
+
+        <!-- Formulario de inicio de sesión -->
+        <form method="post" action="/Home/Index2">
+            <div class="mb-3">
+                <label for="CorreoElectronico" class="form-label">Correo electrónico</label>
+                <input type="email" name="CorreoElectronico" id="CorreoElectronico" class="form-control" placeholder="Correo electrónico" required />
+            </div>
+            <div class="mb-3">
+                <label for="Contrasena" class="form-label">Contraseña</label>
+                <input type="password" name="Contrasena" id="Contrasena" class="form-control" placeholder="Contraseña" required />
+                <small class="form-text text-muted">
+                    Usa una letra, un número, un carácter especial y al menos 8 caracteres.
+                </small>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-dark w-100">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Estilos opcionales -->
+<style>
+    .login-box {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn-dark {
+        background-color: #555;
+        border: none;
+        font-weight: bold;
+    }
+
+    .btn-dark:hover {
+        background-color: #333;
+    }
+</style>

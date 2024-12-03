@@ -41,6 +41,21 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult Contacto_soporte()
+        {
+            return View();
+        }
+
+        public IActionResult Editar_mascotas()
+        {
+            return View();
+        }
+
+        public IActionResult Editar_perfil()
+        {
+            return View();
+        }
+
         public IActionResult Register()
         {
             return View();

@@ -1,69 +1,84 @@
-﻿@model IEnumerable<TestGen.ApplicationCore.EN.DSM.UsuarioEN>
-@{
-    ViewData["Title"] = "PuppyBond";
+﻿@{
+    ViewData["Title"] = "Mensajes";
 }
 
-<div class="container">
-    <!-- Encabezado con logo y botones -->
-    <header class="d-flex justify-content-between align-items-center py-3">
-        <h1 class="logo">
-            Puppy<span style="color: #ff6f61;">B<span style="font-size: 1.5em;">🐾</span>ND</span>
-        </h1>
-        <div class="icons">
-            <button class="btn btn-outline-secondary mx-1" aria-label="Notificaciones">🔔</button>
-            <button class="btn btn-outline-secondary mx-1" aria-label="Mensajes">💬</button>
-            <button class="btn btn-outline-secondary mx-1" aria-label="Perfil">👤</button>
+<div class="container-fluid vh-100 d-flex flex-column">
+    <!-- Header -->
+    <div class="row bg-light p-2 align-items-center shadow-sm">
+        <div class="col-3 d-flex align-items-center">
+            <img src="/images/logo.png" alt="PuppyBond Logo" style="height: 40px;" />
+            <h5 class="ms-2">PuppyBond</h5>
         </div>
-    </header>
-
-    <!-- Barra de búsqueda -->
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Buscar usuarios o mascotas">
-        <button class="btn btn-outline-secondary" type="button">🔍</button>
+        <div class="col-6">
+            <input type="text" class="form-control" placeholder="Buscar" />
+        </div>
+        <div class="col-3 d-flex justify-content-end align-items-center">
+            <i class="bi bi-bell me-3" style="font-size: 1.5rem;"></i>
+            <i class="bi bi-chat-dots me-3" style="font-size: 1.5rem;"></i>
+            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+        </div>
     </div>
 
-    <div class="row">
-        <!-- Lista de chats (usuarios y mascotas) -->
-        <aside class="col-md-3">
-            <ul class="list-group">
-                @foreach (var usuario in Model)
-                {
-                    <li class="list-group-item d-flex align-items-center">
-                        <span class="me-2">👤</span> @usuario.Nombre
-                    </li>
-                }
-            </ul>
-        </aside>
+    <!-- Main Content -->
+    <div class="row flex-grow-1">
+        <!-- Sidebar -->
+        <div class="col-3 border-end p-3 overflow-auto">
+            <div class="user-item d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+                <span>Usuario Mascota</span>
+            </div>
+            <div class="user-item d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+                <span>Usuario Mascota</span>
+            </div>
+            <div class="user-item d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+                <span>Usuario Mascota</span>
+            </div>
+        </div>
 
-        <!-- Ventana de chat -->
-        <section class="col-md-9">
-            <div class="chat-window border rounded p-3">
-                <div class="chat-message mb-2">
-                    <div class="message-bubble bg-light p-2 rounded">
-                        <p>Mensaje del otro usuario...</p>
-                    </div>
-                </div>
-                <div class="chat-message text-end mb-2">
-                    <div class="message-bubble bg-primary text-white p-2 rounded">
-                        <p>Mi mensaje...</p>
-                    </div>
-                </div>
-                <div class="chat-message mb-2">
-                    <div class="message-bubble bg-light p-2 rounded">
-                        <p>Otro mensaje del usuario...</p>
-                    </div>
-                </div>
-                <div class="chat-map mt-3">
-                    <img src="/images/map_placeholder.png" alt="Mapa" class="img-fluid rounded">
-                    <p class="small text-muted mt-1">Ubicación compartida...</p>
+        <!-- Chat Area -->
+        <div class="col-9 d-flex flex-column">
+            <div class="chat-messages flex-grow-1 p-3 overflow-auto">
+                <div class="message bg-light p-2 rounded mb-2 align-self-start">Hola, ¿cómo estás?</div>
+                <div class="message bg-primary text-white p-2 rounded mb-2 align-self-end">Muy bien, ¿y tú?</div>
+                <div class="message bg-light p-2 rounded mb-2 align-self-start">Aquí, disfrutando el día.</div>
+                <div class="message bg-light p-2 rounded mb-2 align-self-start">
+                    <img src="/images/map-sample.png" alt="Mapa" style="width: 100%; max-width: 200px;" />
                 </div>
             </div>
-
-            <!-- Barra de entrada para escribir mensajes -->
-            <div class="input-group mt-3">
-                <input type="text" class="form-control" placeholder="Escribe un mensaje...">
-                <button class="btn btn-primary" type="button" aria-label="Enviar">➤</button>
+            <div class="chat-input d-flex align-items-center p-2 border-top">
+                <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." />
+                <button class="btn btn-primary">
+                    <i class="bi bi-send"></i>
+                </button>
             </div>
-        </section>
+        </div>
     </div>
 </div>
+
+<!-- Estilos opcionales -->
+<style>
+    .user-item {
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .user-item:hover {
+            background-color: #f8f9fa;
+        }
+
+    .chat-messages {
+        background-color: #e9ecef;
+        border-radius: 10px;
+    }
+
+    .message {
+        max-width: 60%;
+        word-wrap: break-word;
+    }
+
+    .chat-input input {
+        border-radius: 20px;
+    }
+</style>
