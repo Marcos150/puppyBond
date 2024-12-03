@@ -5,14 +5,32 @@ namespace WebApplication1.Assemblers
 {
     public class MascotaAssembler
     {
-        public MascotaViewModel ConvertirEnToModel(MascotaEN en)
+        public MascotaViewModel ConvertirENToModel(MascotaEN en)
         {
-            MascotaViewModel model = new MascotaViewModel();
-
-            model.Id = en.Id;
-            model.Name = en.Nombre;
+            MascotaViewModel model = new()
+            {
+                Id = en.Id,
+                Name = en.Nombre,
+                Raza = en.Raza,
+                Sexo = en.Sexo,
+                Vacunacion = en.Vacunacion,
+                Tamanyo = en.Tamanyo,
+                Edad = en.Edad,
+                Descripcion = en.Descripcion,
+                Imagen = en.Imagen
+            };
 
             return model;
+        }
+
+        public IList<MascotaViewModel> ConvertirListENToViewModel(IList<MascotaEN> ens)
+        {
+            IList<MascotaViewModel> models = new List<MascotaViewModel>();
+            foreach (MascotaEN en in ens)
+            {
+                models.Add(ConvertirENToModel(en));
+            }
+            return models;
         }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TestGen.ApplicationCore.EN.DSM.UsuarioEN>
+@{
+    ViewData["Title"] = "PuppyBond";
+}
+
+<div class="container">
+    <!-- Encabezado con logo y botones -->
+    <header class="d-flex justify-content-between align-items-center py-3">
+        <h1 class="logo">
+            Puppy<span style="color: #ff6f61;">B<span style="font-size: 1.5em;">🐾</span>ND</span>
+        </h1>
+        <div class="icons">
+            <button class="btn btn-outline-secondary mx-1" aria-label="Notificaciones">🔔</button>
+            <button class="btn btn-outline-secondary mx-1" aria-label="Mensajes">💬</button>
+            <button class="btn btn-outline-secondary mx-1" aria-label="Perfil">👤</button>
+        </div>
+    </header>
+
+    <!-- Barra de búsqueda -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Buscar usuarios o mascotas">
+        <button class="btn btn-outline-secondary" type="button">🔍</button>
+    </div>
+
+    <div class="row">
+        <!-- Lista de chats (usuarios y mascotas) -->
+        <aside class="col-md-3">
+            <ul class="list-group">
+                @foreach (var usuario in Model)
+                {
+                    <li class="list-group-item d-flex align-items-center">
+                        <span class="me-2">👤</span> @usuario.Nombre
+                    </li>
+                }
+            </ul>
+        </aside>
+
+        <!-- Ventana de chat -->
+        <section class="col-md-9">
+            <div class="chat-window border rounded p-3">
+                <div class="chat-message mb-2">
+                    <div class="message-bubble bg-light p-2 rounded">
+                        <p>Mensaje del otro usuario...</p>
+                    </div>
+                </div>
+                <div class="chat-message text-end mb-2">
+                    <div class="message-bubble bg-primary text-white p-2 rounded">
+                        <p>Mi mensaje...</p>
+                    </div>
+                </div>
+                <div class="chat-message mb-2">
+                    <div class="message-bubble bg-light p-2 rounded">
+                        <p>Otro mensaje del usuario...</p>
+                    </div>
+                </div>
+                <div class="chat-map mt-3">
+                    <img src="/images/map_placeholder.png" alt="Mapa" class="img-fluid rounded">
+                    <p class="small text-muted mt-1">Ubicación compartida...</p>
+                </div>
+            </div>
+
+            <!-- Barra de entrada para escribir mensajes -->
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+                <button class="btn btn-primary" type="button" aria-label="Enviar">➤</button>
+            </div>
+        </section>
+    </div>
+</div>
