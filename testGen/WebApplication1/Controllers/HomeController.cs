@@ -66,11 +66,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult login()
-        {
-            return View();
-        }
-
         public IActionResult Perfil_ajeno()
         {
             return View();

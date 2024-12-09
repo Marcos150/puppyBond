@@ -1,0 +1,73 @@
+﻿    @model WebApplication1.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="login-box border rounded p-4" style="max-width: 400px; width: 100%;">
+        <!-- Título -->
+        <h2 class="text-center mb-3">INICIAR SESIÓN</h2>
+
+        <!-- Botón de Google -->
+        <div class="mb-3 text-center">
+            <button class="btn btn-primary w-100" style="background-color: #4285F4; border: none;">
+                <i class="fab fa-google"></i> Iniciar sesión con Google
+            </button>
+        </div>
+        <p class="text-center">O usa tu correo electrónico</p>
+
+        <!-- Formulario de inicio de sesión -->
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label form-label"></label>
+                <input asp-for="Email" class="form-control" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Pass" class="form-label control-label">Contraseña</label>
+                <input asp-for="Pass" class="form-control" required />
+                <span asp-validation-for="Pass" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-dark w-100" value="Create">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+<!-- Estilos opcionales -->
+<style>
+    .login-box {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn-dark {
+        background-color: #555;
+        border: none;
+        font-weight: bold;
+    }
+
+        .btn-dark:hover {
+            background-color: #333;
+        }
+</style>
