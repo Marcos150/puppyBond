@@ -5,6 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Http
+
+@{
+    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
+}
+
+@if (usuario != null)
+{
+    <script>
+        // Si ya se ha iniciado sesion, redirige a otra pagina
+        const url = "@Url.Action("Principal", "Home")"; //Pagina a la que redirecciona si ya se ha iniciado sesion
+        location.href = url;
+    </script>
+}
+
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="login-box border rounded p-4" style="max-width: 400px; width: 100%;">
         <!-- Título -->

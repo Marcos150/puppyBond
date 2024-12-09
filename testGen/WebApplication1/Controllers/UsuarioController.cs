@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestGen.ApplicationCore.CEN.DSM;
+using TestGen.ApplicationCore.EN.DSM;
 using TestGen.Infraestructure.Repository.DSM;
+using WebApplication1.Assemblers;
 using WebApplication1.Models;
 using WebRentacar.Controllers;
 
@@ -29,6 +31,11 @@ namespace WebApplication1.Controllers
                 return View();
             }
 
+            SessionInitialize();
+            UsuarioEN usuarioEN = usuarioCEN.LeerOID(login.Email);
+            UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
+            HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
+            SessionClose();
             return RedirectToAction("Index", "Home");
         }
 

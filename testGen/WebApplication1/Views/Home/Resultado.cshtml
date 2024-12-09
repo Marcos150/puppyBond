@@ -3,22 +3,6 @@
 }
 
 <div class="container">
-    <!-- Header con logo y botones -->
-    <header class="d-flex justify-content-between align-items-center py-3">
-        <div class="logo">
-            <img src="~/images/logo.png" alt="PuppyBond" class="img-fluid" />
-        </div>
-        <div class="buttons">
-            <a href="/Account/Register" class="btn btn-primary">Crear Cuenta</a>
-            <a href="/Account/Login" class="btn btn-secondary">Iniciar Sesión</a>
-        </div>
-    </header>
-
-    <!-- Barra de búsqueda -->
-    <div class="search-bar mb-4">
-        <input type="text" class="form-control" placeholder="Buscar..." />
-    </div>
-
     <!-- Lista de mascotas -->
     <div class="pet-list">
         @for (int i = 0; i < 2; i++) // Ejemplo con 2 mascotas
