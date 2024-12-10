@@ -3,6 +3,21 @@
     ViewData["Title"] = "Registro";
 }
 
+@using Microsoft.AspNetCore.Http
+
+@{
+    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
+}
+
+@if (usuario != null)
+{
+    <script>
+        // Si ya se ha iniciado sesion, redirige a otra pagina
+        const url = "@Url.Action("Index", "Home")"; //Pagina a la que redirecciona si ya se ha iniciado sesion
+        location.href = url;
+    </script>
+}
+
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="register-box border rounded p-4" style="max-width: 400px; width: 100%;">
         <!-- Título -->
@@ -19,7 +34,6 @@
         <!-- Formulario de registro -->
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group mb-3">
                 <label asp-for="Nombre" class="control-label form-label"></label>
                 <input asp-for="Nombre" class="form-control" required />
@@ -27,7 +41,7 @@
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="Apellidos" class="control-label form-label"></label>
+                <label asp-for="Apellidos" class="control-label form-label">Apellidos</label>
                 <input asp-for="Apellidos" class="form-control" required />
                 <span asp-validation-for="Apellidos" class="text-danger"></span>
             </div>
@@ -40,23 +54,23 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Email" class="control-label form-label">Correo Electrónico</label>
-                <input asp-for="Email" class="form-control" type="email" required />
+                <input asp-for="Email" class="form-control" required />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="Pass" class="form-label control-label">Contraseña</label>
-                <input asp-for="Pass" class="form-control" type="password" required />
+                <input asp-for="Pass" class="form-control" required />
                 <small class="form-text text-muted">
                     Usa una letra, un número, un carácter especial y al menos 8 caracteres.
-                </small>
+                </small><br>
                 <span asp-validation-for="Pass" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="Disponibilidad" class="form-label control-label">Disponibilidad</label>
                 <input asp-for="Disponibilidad" class="form-control" type="text" required />
-                <span asp-validation-for="Pass" class="text-danger"></span>
+                <span asp-validation-for="Disponibilidad" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
@@ -66,6 +80,12 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <!-- Estilos opcionales -->
 <style>
