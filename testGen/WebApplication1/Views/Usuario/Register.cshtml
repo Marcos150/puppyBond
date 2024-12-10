@@ -1,0 +1,95 @@
+﻿@model WebApplication1.Models.UsuarioViewModel
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="register-box border rounded p-4" style="max-width: 400px; width: 100%;">
+        <!-- Título -->
+        <h2 class="text-center mb-3">REGÍSTRATE</h2>
+
+        <!-- Botón de Google -->
+        <div class="mb-3 text-center">
+            <button class="btn btn-primary w-100" style="background-color: #4285F4; border: none;">
+                <i class="fab fa-google"></i> Registrarse con Google
+            </button>
+        </div>
+        <p class="text-center">O usa tu correo electrónico</p>
+
+        <!-- Formulario de registro -->
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Nombre" class="control-label form-label"></label>
+                <input asp-for="Nombre" class="form-control" required />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Apellidos" class="control-label form-label"></label>
+                <input asp-for="Apellidos" class="form-control" required />
+                <span asp-validation-for="Apellidos" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Ubicacion" class="control-label form-label"></label>
+                <input asp-for="Ubicacion" class="form-control" />
+                <span asp-validation-for="Ubicacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label form-label">Correo Electrónico</label>
+                <input asp-for="Email" class="form-control" type="email" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Pass" class="form-label control-label">Contraseña</label>
+                <input asp-for="Pass" class="form-control" type="password" required />
+                <small class="form-text text-muted">
+                    Usa una letra, un número, un carácter especial y al menos 8 caracteres.
+                </small>
+                <span asp-validation-for="Pass" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Disponibilidad" class="form-label control-label">Disponibilidad</label>
+                <input asp-for="Disponibilidad" class="form-control" type="text" required />
+                <span asp-validation-for="Pass" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-dark w-100">Registrarse en PuppyBond</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Estilos opcionales -->
+<style>
+    .register-box {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn-dark {
+        background-color: #555;
+        border: none;
+        font-weight: bold;
+    }
+
+        .btn-dark:hover {
+            background-color: #333;
+        }
+</style>

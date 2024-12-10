@@ -17,6 +17,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         //POST: UsuarioController
         [HttpPost]
         public ActionResult Login(LoginViewModel login)
@@ -38,6 +43,58 @@ namespace WebApplication1.Controllers
             SessionClose();
             return RedirectToAction("Index", "Home");
         }
+
+        //POST: UsuarioController
+        [HttpPost]
+        public ActionResult Register(UsuarioViewModel register)
+        {
+            UsuarioRepository usuarioRepository = new UsuarioRepository();
+            UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
+
+            // Verificar si ya existe un usuario con el mismo correo
+            if (usuarioCEN.LeerOID(register.Email) != null)
+            {
+                ModelState.AddModelError("", "Ya existe un usuario con este correo electrónico.");
+                return View(register);
+            }
+
+            try
+            {
+                // Crear el nuevo usuario pasando todos los datos
+                var nuevoUsuarioId = usuarioCEN.Nuevo(
+                    register.Nombre,
+                    register.Apellidos,
+                    register.Email,
+                    register.Pass,
+                    register.Disponibilidad,
+                    register.Ubicacion
+                );
+
+                if (nuevoUsuarioId == null)
+                {
+                    ModelState.AddModelError("", "No se pudo registrar el usuario. Intenta nuevamente.");
+                    return View(register);
+                }
+
+                // Cargar el usuario recién creado y guardar en sesión
+                SessionInitialize();
+                UsuarioEN usuarioEN = usuarioCEN.LeerOID(register.Email);
+                UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
+                HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
+                SessionClose();
+
+                // Redirigir a la página principal
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                ModelState.AddModelError("", "Ocurrió un error durante el registro: " + ex.Message);
+                return View(register);
+            }
+        }
+
+
 
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)

@@ -56,11 +56,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         public IActionResult Index2()
         {
             return View();

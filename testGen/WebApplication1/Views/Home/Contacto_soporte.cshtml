@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Contacto Soporte - PuppyBond";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Contacto Soporte</h1>
+    <p class="text-center">
+        ¿Tienes alguna duda o problema? ¡Estamos aquí para ayudarte!
+        Por favor, completa el formulario a continuación y nuestro equipo de soporte se pondrá en contacto contigo lo antes posible.
+    </p>
+    <form method="post" action="/Soporte/EnviarContacto" class="mt-4"> <!--Arreglar esto-->
+        <div class="mb-3">
+            <label for="Nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" name="Nombre" required placeholder="Tu nombre completo">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="Email" name="Email" required placeholder="tucorreo@ejemplo.com">
+        </div>
+        <div class="mb-3">
+            <label for="Asunto" class="form-label">Asunto</label>
+            <input type="text" class="form-control" id="Asunto" name="Asunto" required placeholder="Breve resumen del problema">
+        </div>
+        <div class="mb-3">
+            <label for="Mensaje" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="Mensaje" name="Mensaje" rows="5" required placeholder="Describe tu problema o duda aquí"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+    .container {
+        max-width: 600px;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #007bff;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
