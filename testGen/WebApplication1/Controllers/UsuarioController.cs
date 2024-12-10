@@ -93,8 +93,16 @@ namespace WebApplication1.Controllers
                 return View(register);
             }
         }
-
-
+        
+        //POST: UsuarioController/Logout
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            SessionInitialize();
+            HttpContext.Session.Remove("usuario");
+            SessionClose();
+            return RedirectToAction("Principal", "Home");
+        }
 
         // GET: UsuarioController/Details/5
         public ActionResult Details(int id)
