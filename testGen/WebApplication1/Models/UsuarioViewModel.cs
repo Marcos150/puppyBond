@@ -32,5 +32,8 @@ namespace WebApplication1.Models
         [Display(Prompt = "Ubicación", Description = "Ubicación del usuario", Name = "Ubicacion")]
         [Required(ErrorMessage = "La ubicación es obligatoria")]
         public string Ubicacion { get; set; }
+
+        [ScaffoldColumn(false)]
+        public MascotaViewModel Mascota { get; set; }
     }
 }

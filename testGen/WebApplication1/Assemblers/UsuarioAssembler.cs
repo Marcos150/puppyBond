@@ -14,7 +14,8 @@ namespace WebApplication1.Assemblers
                 Nombre = en.Nombre,
                 Apellidos = en.Apellidos,
                 Disponibilidad = en.Disponibilidad,
-                Ubicacion = en.Ubicacion
+                Ubicacion = en.Ubicacion,
+                Mascota = en.Mascota
             };
 
             return model;

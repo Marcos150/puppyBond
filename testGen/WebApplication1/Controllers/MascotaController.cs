@@ -1,13 +1,61 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TestGen.Infraestructure.Repository.DSM;
+using TestGen.ApplicationCore.CEN.DSM;
+using TestGen.ApplicationCore.EN.DSM;
+using WebApplication1.Models;
+using WebApplication1.Assemblers;
+using WebRentacar.Controllers;
 
 namespace WebApplication1.Controllers
 {
-    public class MascotaController : Controller
+    public class MascotaController : BasicController
     {
         // GET: HomeController1
         public ActionResult Index()
         {
+            SessionInitialize();
+            MascotaRepository mascotaRepository = new MascotaRepository(session);
+            MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
+
+            IList<MascotaEN> listEN = mascotaCen.LeerTodos(0, -1);
+
+            IEnumerable<MascotaViewModel> listMascotas = new MascotaAssembler().ConvertirListENToViewModel(listEN).ToList();
+            SessionClose();
+
+            return View(listMascotas);
+        }
+
+        public ActionResult Index2()
+        {
+            SessionInitialize();
+            MascotaRepository mascotaRepository = new MascotaRepository(session);
+            MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
+
+            IList<MascotaEN> listEN = mascotaCen.LeerTodos(0, -1);
+
+            IEnumerable<MascotaViewModel> listMascotas = new MascotaAssembler().ConvertirListENToViewModel(listEN).ToList();
+            SessionClose();
+
+            return View(listMascotas);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnviarPeticionMatch(MascotaViewModel receptor)
+        {
+            SessionInitialize();
+            MascotaRepository mascotaRepository = new MascotaRepository(session);
+            MatchRepository matchRepository = new MatchRepository(session);
+            MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
+            MatchCEN matchCen = new MatchCEN(matchRepository);
+
+
+            UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            int idMatch = matchCen.Nuevo(usuario.Mascota.Id, receptor.Id, "Universidad de Alicante");
+
+            SessionClose();
+
             return View();
         }
 

@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
             UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
             HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
             SessionClose();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index2", "Mascota");
         }
 
         //POST: UsuarioController
