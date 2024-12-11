@@ -17,7 +17,9 @@ namespace WebApplication1.Assemblers
                 Tamanyo = en.Tamanyo,
                 Edad = en.Edad,
                 Descripcion = en.Descripcion,
-                Imagen = en.Imagen
+                Imagen = en.Imagen,
+                MatchEnviados = en.MatchEnviados,
+                MatchRecibidos = en.MatchRecibidos
             };
 
             return model;

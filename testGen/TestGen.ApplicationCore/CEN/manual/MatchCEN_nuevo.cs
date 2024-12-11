@@ -19,6 +19,10 @@ public int Nuevo (int p_mascotaEnvia, int p_mascotaRecibe, string p_ubicacion)
 {
         /*PROTECTED REGION ID(TestGen.ApplicationCore.CEN.DSM_Match_nuevo_customized) ENABLED START*/
 
+        if (p_mascotaEnvia == p_mascotaRecibe)
+        {
+            throw new Exception("No puedes hacer match contigo mismo");
+        }
         MatchEN matchEN = null;
 
         int oid;

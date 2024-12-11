@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestGen.ApplicationCore.EN.DSM;
 using TestGen.ApplicationCore.Enumerated.DSM;
 
 namespace WebApplication1.Models
@@ -15,6 +16,10 @@ namespace WebApplication1.Models
         [Display(Prompt = "Escribe la ubicación del match", Description = "Ubicación del match", Name = "Ubicación")]
         public string? Ubicacion { get; set; }
 
-        // Aquí puedes agregar más propiedades según sea necesario
+        [ScaffoldColumn(false)]
+        public MascotaEN? MascotaRecibe { get; set; }
+
+        [ScaffoldColumn(false)]
+        public MascotaEN? MascotaEnvia { get; set; }
     }
 }

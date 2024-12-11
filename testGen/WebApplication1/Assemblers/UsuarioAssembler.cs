@@ -15,7 +15,7 @@ namespace WebApplication1.Assemblers
                 Apellidos = en.Apellidos,
                 Disponibilidad = en.Disponibilidad,
                 Ubicacion = en.Ubicacion,
-                Mascota = new MascotaAssembler().ConvertirENToModel(en.Mascota)
+                Mascota = en.Mascota
             };
 
             return model;

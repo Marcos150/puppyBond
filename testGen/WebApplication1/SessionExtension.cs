@@ -6,7 +6,11 @@ namespace WebApplication1
     {
         public static void Set<T>(this ISession session, string key, T value)
         {
-            session.SetString(key, JsonSerializer.Serialize(value));
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles
+            };
+            session.SetString(key, JsonSerializer.Serialize(value, options));
         }
         public static T Get<T>(this ISession session, string key)
         {

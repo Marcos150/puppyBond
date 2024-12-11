@@ -42,6 +42,7 @@
                 </div>
             </div>
             <!-- Lista de pendientes -->
+            <!--TODO: Agregar iconos fontawesome-->
             <div class="pending-list p-3 border rounded bg-light">
                 <h6>Pendientes</h6>
                 <ul class="list-unstyled mt-2">
@@ -57,6 +58,21 @@
                     <li class="d-flex align-items-center">
                         <i class="fas fa-user-circle me-2"></i> Mascota 4
                     </li>
+                    @if (usuario.Mascota.MatchEnviados.Count == 0)
+                    {
+                        <li class="d-flex align-items-center">
+                            <i class="fas fa-user-circle me-2"></i> No tienes solicitudes pendientes
+                        </li>
+                    }
+                    @if (usuario.Mascota.MatchEnviados.Count != 0)
+                    {
+                        @foreach (var item in usuario.Mascota.MatchEnviados)
+                        {
+                            <li class="d-flex align-items-center">
+                                <i class="fas fa-user-circle me-2"></i> @item.MascotaRecibe.Nombre
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -76,7 +92,6 @@
                     
                     @foreach (var item in Model)
                     {
-                        @usuario.Mascota.Id
                         <div class="carousel-item" id="@item.Id" >
                             <img src="https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg" class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">

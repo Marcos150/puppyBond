@@ -11,7 +11,9 @@ namespace WebApplication1.Assemblers
             {
                 Id = en.Id,
                 Estado = en.Estado,
-                Ubicacion = en.Ubicacion
+                Ubicacion = en.Ubicacion,
+                MascotaRecibe = en.MascotaRecibe,
+                MascotaEnvia = en.MascotaEnvia
             };
 
             return model;

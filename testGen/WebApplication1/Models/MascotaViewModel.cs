@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestGen.ApplicationCore.EN.DSM;
 using TestGen.ApplicationCore.Enumerated.DSM;
 
 namespace WebApplication1.Models
@@ -32,5 +33,11 @@ namespace WebApplication1.Models
 
         [Display(Prompt ="Introduce una imagen de la mascota", Description="Imagen de la mascota", Name="Imagen")]
         public string? Imagen { get; set; }
+
+        [ScaffoldColumn(false)]
+        public IList<MatchEN> MatchEnviados { get; set; } = [];
+
+        [ScaffoldColumn(false)]
+        public IList<MatchEN> MatchRecibidos { get; set; } = [];
     }
 }

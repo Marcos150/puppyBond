@@ -40,6 +40,7 @@ namespace WebApplication1.Controllers
             return View(listMascotas);
         }
 
+        //TODO: Poner en el back que solo se puede matchear una vez con la misma mascota
         [Route("Mascota/EnviarPeticionMatch/{receptorId}")]
         public ActionResult EnviarPeticionMatch(int receptorId)
         {
@@ -48,7 +49,9 @@ namespace WebApplication1.Controllers
                 SessionInitialize();
                 Console.WriteLine("ReceptorId: " + receptorId);
                 MatchRepository matchRepository = new MatchRepository(session);
+                UsuarioRepository usuarioRepository = new UsuarioRepository(session);
                 MatchCEN matchCen = new MatchCEN(matchRepository);
+                UsuarioCEN usuarioCen = new UsuarioCEN(usuarioRepository);
 
                 UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
                 matchCen.Nuevo(usuario.Mascota.Id, receptorId, "Universidad de Alicante");
@@ -60,13 +63,17 @@ namespace WebApplication1.Controllers
 
                 IEnumerable<MascotaViewModel> listMascotas = new MascotaAssembler().ConvertirListENToViewModel(listEN).ToList();
 
+                //Actualiza datos del usuario en la sesion
+                UsuarioViewModel usuarioActualizado = new UsuarioAssembler().ConvertirENToModel(usuarioCen.LeerOID(usuario.Email));
+                HttpContext.Session.Set("usuario", usuarioActualizado);
+
                 SessionClose();
 
                 return RedirectToAction("Index2", new Dictionary<string, bool>(){ { "xd",true } });
             }
             catch
             {
-                return RedirectToAction("Index2", false);
+                return RedirectToAction("Index2", new Dictionary<string, bool>(){ { "xd",false } });
             }
         }
 

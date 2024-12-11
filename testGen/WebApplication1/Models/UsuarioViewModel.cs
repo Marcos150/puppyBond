@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TestGen.ApplicationCore.EN.DSM;
 
 namespace WebApplication1.Models
 {
@@ -34,6 +35,6 @@ namespace WebApplication1.Models
         public string Ubicacion { get; set; }
 
         [ScaffoldColumn(false)]
-        public MascotaViewModel Mascota { get; set; }
+        public MascotaEN Mascota { get; set; }
     }
 }
