@@ -40,23 +40,34 @@ namespace WebApplication1.Controllers
             return View(listMascotas);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EnviarPeticionMatch(MascotaViewModel receptor)
+        [Route("Mascota/EnviarPeticionMatch/{receptorId}")]
+        public ActionResult EnviarPeticionMatch(int receptorId)
         {
-            SessionInitialize();
-            MascotaRepository mascotaRepository = new MascotaRepository(session);
-            MatchRepository matchRepository = new MatchRepository(session);
-            MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
-            MatchCEN matchCen = new MatchCEN(matchRepository);
+            try
+            {
+                SessionInitialize();
+                Console.WriteLine("ReceptorId: " + receptorId);
+                MatchRepository matchRepository = new MatchRepository(session);
+                MatchCEN matchCen = new MatchCEN(matchRepository);
 
+                UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+                matchCen.Nuevo(usuario.Mascota.Id, receptorId, "Universidad de Alicante");
 
-            UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
-            int idMatch = matchCen.Nuevo(usuario.Mascota.Id, receptor.Id, "Universidad de Alicante");
+                MascotaRepository mascotaRepository = new MascotaRepository(session);
+                MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
 
-            SessionClose();
+                IList<MascotaEN> listEN = mascotaCen.LeerTodos(0, -1);
 
-            return View();
+                IEnumerable<MascotaViewModel> listMascotas = new MascotaAssembler().ConvertirListENToViewModel(listEN).ToList();
+
+                SessionClose();
+
+                return RedirectToAction("Index2", new Dictionary<string, bool>(){ { "xd",true } });
+            }
+            catch
+            {
+                return RedirectToAction("Index2", false);
+            }
         }
 
         // GET: HomeController1/Details/5

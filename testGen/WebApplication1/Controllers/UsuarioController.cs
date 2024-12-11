@@ -26,7 +26,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel login)
         {
-            UsuarioRepository usuarioRepository = new UsuarioRepository();
+            SessionInitialize();
+            UsuarioRepository usuarioRepository = new UsuarioRepository(session);
             UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
 
             // Si falla el login va a la vista de login mostrando un error
@@ -36,7 +37,6 @@ namespace WebApplication1.Controllers
                 return View();
             }
 
-            SessionInitialize();
             UsuarioEN usuarioEN = usuarioCEN.LeerOID(login.Email);
             UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
             HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
@@ -48,7 +48,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Register(UsuarioViewModel register)
         {
-            UsuarioRepository usuarioRepository = new UsuarioRepository();
+            UsuarioRepository usuarioRepository = new UsuarioRepository(session);
             UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
 
             // Verificar si ya existe un usuario con el mismo correo
