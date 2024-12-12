@@ -35,6 +35,6 @@ namespace WebApplication1.Models
         public string Ubicacion { get; set; }
 
         [ScaffoldColumn(false)]
-        public MascotaEN Mascota { get; set; }
+        public MascotaViewModel? Mascota { get; set; }
     }
 }

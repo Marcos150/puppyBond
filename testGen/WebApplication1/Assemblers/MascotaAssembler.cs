@@ -18,8 +18,8 @@ namespace WebApplication1.Assemblers
                 Edad = en.Edad,
                 Descripcion = en.Descripcion,
                 Imagen = en.Imagen,
-                MatchEnviados = en.MatchEnviados,
-                MatchRecibidos = en.MatchRecibidos
+                MatchEnviados = new MatchAssembler().ConvertirListENToViewModel(en.MatchEnviados),
+                MatchRecibidos = new MatchAssembler().ConvertirListENToViewModel(en.MatchRecibidos)
             };
 
             return model;

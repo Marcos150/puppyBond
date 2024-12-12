@@ -2,13 +2,22 @@
 
 @{
     ViewData["Title"] = "Interfaz Mascotas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using Microsoft.AspNetCore.Http
 
 @{
-    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
+    // No se porque, pero aqui si el usuario es null no va
+    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario") ?? new UsuarioViewModel();
+    if (usuario.Nombre == null)
+    {
+        usuario.Nombre = "No existo";
+        usuario.Mascota = new MascotaViewModel();
+    }
 }
 
-@if (usuario == null)
+@if (usuario.Nombre == "No existo")
 {
     <script>
         // Si no se ha iniciado sesion, redirige a otra pagina
@@ -46,18 +55,6 @@
             <div class="pending-list p-3 border rounded bg-light">
                 <h6>Pendientes</h6>
                 <ul class="list-unstyled mt-2">
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="fas fa-user-circle me-2"></i> Mascota 1
-                    </li>
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="fas fa-user-circle me-2"></i> Mascota 2
-                    </li>
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="fas fa-user-circle me-2"></i> Mascota 3
-                    </li>
-                    <li class="d-flex align-items-center">
-                        <i class="fas fa-user-circle me-2"></i> Mascota 4
-                    </li>
                     @if (usuario.Mascota.MatchEnviados.Count == 0)
                     {
                         <li class="d-flex align-items-center">
@@ -69,7 +66,7 @@
                         @foreach (var item in usuario.Mascota.MatchEnviados)
                         {
                             <li class="d-flex align-items-center">
-                                <i class="fas fa-user-circle me-2"></i> @item.MascotaRecibe.Nombre
+                                <i class="fas fa-user-circle me-2"></i> @item.MascotaRecibeNombre
                             </li>
                         }
                     }

@@ -35,9 +35,9 @@ namespace WebApplication1.Models
         public string? Imagen { get; set; }
 
         [ScaffoldColumn(false)]
-        public IList<MatchEN> MatchEnviados { get; set; } = [];
+        public IList<MatchViewModel> MatchEnviados { get; set; } = [];
 
         [ScaffoldColumn(false)]
-        public IList<MatchEN> MatchRecibidos { get; set; } = [];
+        public IList<MatchViewModel> MatchRecibidos { get; set; } = [];
     }
 }

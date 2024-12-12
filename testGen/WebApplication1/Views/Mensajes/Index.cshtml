@@ -1,5 +1,11 @@
-﻿@{
+﻿@model IEnumerable<MensajeViewModel>
+
+@{
     ViewData["Title"] = "Mensajes";
+}
+
+@{
+    UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
 }
 
 <div class="container-fluid vh-100 d-flex flex-column">
@@ -23,26 +29,31 @@
     <div class="row flex-grow-1">
         <!-- Sidebar -->
         <div class="col-3 border-end p-3 overflow-auto">
-            <div class="user-item d-flex align-items-center mb-3">
-                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
-                <span>Usuario Mascota</span>
-            </div>
-            <div class="user-item d-flex align-items-center mb-3">
-                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
-                <span>Usuario Mascota</span>
-            </div>
-            <div class="user-item d-flex align-items-center mb-3">
-                <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
-                <span>Usuario Mascota</span>
-            </div>
+            <!-- TODO: Mostrar nombre en lugar de correo -->
+            @foreach (var item in Model)
+            {
+                <div class="user-item d-flex align-items-center mb-3">
+                    <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+                    <a href="/Mensajes/Index?usuarioEmail=@item.EmailUsuarioRecibe"><span>@item.EmailUsuarioRecibe</span></a>
+                </div>
+            }
         </div>
 
         <!-- Chat Area -->
         <div class="col-9 d-flex flex-column">
             <div class="chat-messages flex-grow-1 p-3 overflow-auto">
-                <div class="message bg-light p-2 rounded mb-2 align-self-start">Hola, ¿cómo estás?</div>
-                <div class="message bg-primary text-white p-2 rounded mb-2 align-self-end">Muy bien, ¿y tú?</div>
-                <div class="message bg-light p-2 rounded mb-2 align-self-start">Aquí, disfrutando el día.</div>
+                @foreach (var item in Model)
+                {
+                    @if (usuario.Email == item.EmailUsuarioRecibe)
+                    {
+                        <div class="message bg-light p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                    }
+                    @if (usuario.Email == item.EmailUsuarioEnvia)
+                    {
+                        <div class="message bg-primary p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                    }
+                }
+
                 <div class="message bg-light p-2 rounded mb-2 align-self-start">
                     <img src="/images/map-sample.png" alt="Mapa" style="width: 100%; max-width: 200px;" />
                 </div>
@@ -59,6 +70,14 @@
 
 <!-- Estilos opcionales -->
 <style>
+    a {
+        color: black;
+        text-decoration: none;
+
+        &:hover {
+            color: black;
+        }
+    }
     .user-item {
         cursor: pointer;
         transition: background-color 0.3s ease;

@@ -11,7 +11,9 @@ namespace WebApplication1.Assemblers
             {
                 Id = en.Id,
                 Contenido = en.Contenido,
-                Fecha = en.Fecha
+                Fecha = en.Fecha,
+                EmailUsuarioEnvia = en.Emisor.Email,
+                EmailUsuarioRecibe = en.Receptor.Email
             };
 
             return model;

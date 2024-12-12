@@ -15,7 +15,7 @@ namespace WebApplication1.Assemblers
                 Apellidos = en.Apellidos,
                 Disponibilidad = en.Disponibilidad,
                 Ubicacion = en.Ubicacion,
-                Mascota = en.Mascota
+                Mascota = new MascotaAssembler().ConvertirENToModel(en.Mascota)
             };
 
             return model;
@@ -30,22 +30,6 @@ namespace WebApplication1.Assemblers
                 models.Add(ConvertirENToModel(en));
             }
             return models;
-        }
-
-        // Convierte un UsuarioViewModel a UsuarioEN
-        public UsuarioEN ConvertirModelToEN(UsuarioViewModel model)
-        {
-            UsuarioEN en = new()
-            {
-                Email = model.Email,
-                Nombre = model.Nombre,
-                Apellidos = model.Apellidos,
-                Disponibilidad = model.Disponibilidad,
-                Ubicacion = model.Ubicacion,
-                Pass = model.Pass
-            };
-
-            return en;
         }
     }
 }

@@ -47,7 +47,6 @@ namespace WebApplication1.Controllers
             try
             {
                 SessionInitialize();
-                Console.WriteLine("ReceptorId: " + receptorId);
                 MatchRepository matchRepository = new MatchRepository(session);
                 UsuarioRepository usuarioRepository = new UsuarioRepository(session);
                 MatchCEN matchCen = new MatchCEN(matchRepository);
