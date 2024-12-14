@@ -38,13 +38,27 @@
             <div class="chat-messages flex-grow-1 p-3 overflow-auto">
                 @foreach (var item in Model)
                 {
-                    @if (usuario.Email == item.EmailUsuarioRecibe)
+                    if (usuario.Email == item.EmailUsuarioRecibe)
                     {
-                        <div class="message w-50 bg-light p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                        if (item.Contenido.Contains("https://www.google.com/maps/search/?q="))
+                        {
+                            <a href="@item.Contenido" target="_blank" class="message w-75 bg-secondary p-2 rounded mb-2 align-self-end d-block">📍 Ubicación recibida</a>
+                        }
+                        else
+                        {
+                            <div class="message w-75 bg-secondary p-2 rounded mb-2 align-self-end">@item.Contenido</div>
+                        }
                     }
-                    @if (usuario.Email == item.EmailUsuarioEnvia)
+                    if (usuario.Email == item.EmailUsuarioEnvia)
                     {
-                        <div class="message w-75 bg-primary p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                        if (item.Contenido.Contains("https://www.google.com/maps/search/?q="))
+                        {
+                            <a href="@item.Contenido" target="_blank" class="message w-75 bg-primary p-2 rounded mb-2 align-self-end d-block">📍 Ubicación enviada</a>
+                        }
+                        else
+                        {
+                            <div class="message w-75 bg-primary p-2 rounded mb-2 align-self-end">@item.Contenido</div>
+                        }
                     }
                 }
             </div>
@@ -54,13 +68,25 @@
                 Context.Request.Query.TryGetValue("correoUsuario", out queryVal);
                 string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).First().EmailUsuarioRecibe;
             }
-            <form action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
+            <form id="formMensaje" action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
                 <input type="hidden" name="correoReceptor" value="@correoReceptor" />
                 <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." name="contenido" required />
                 <button class="btn btn-primary">
                     Enviar
                 </button>
             </form>
+            <button id="btnUbicacion" type="button" class="btn btn-secondary">Enviar ubicación</button>
+            <script>
+                document.getElementById("btnUbicacion").addEventListener("click", () => {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        const url = `https://www.google.com/maps/search/?q=${lat},${lon}`;
+                        document.getElementById("formMensaje").contenido.value = url;
+                        document.getElementById("formMensaje").submit();
+                    });
+                });
+            </script>
         </div>
     </div>
 </div>
@@ -90,6 +116,7 @@
     }
 
     .message {
+        color: white;
         word-wrap: break-word;
     }
 
