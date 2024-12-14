@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestGen.ApplicationCore.CEN.DSM;
+using TestGen.ApplicationCore.CP.DSM;
+using TestGen.Infraestructure.CP;
 using TestGen.Infraestructure.Repository.DSM;
 using WebApplication1.Assemblers;
 using WebApplication1.Models;
@@ -38,6 +40,28 @@ namespace WebApplication1.Controllers
 
             SessionClose();
             return View(mensajesConUsuario);
+        }
+
+        [HttpPost]
+        public ActionResult Enviar([FromForm(Name = "correoReceptor")]  string correoReceptor, [FromForm(Name = "contenido")]  string contenido)
+        {
+            SessionInitialize();
+            MensajeRepository mensajeRepository = new MensajeRepository(session);
+            MensajeCEN mensajeCEN = new MensajeCEN(mensajeRepository);
+            UsuarioCP usuarioCP = new UsuarioCP(new SessionCPNHibernate());
+
+            UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                SessionClose();
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            usuarioCP.EnviarMensaje(usuario.Email, correoReceptor, contenido);
+
+            SessionClose();
+
+            return RedirectToAction(nameof(Index), routeValues: correoReceptor);
         }
 
         // GET: MensajesController/Details/5

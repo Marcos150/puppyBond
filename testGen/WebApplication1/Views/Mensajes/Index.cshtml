@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<MensajeViewModel>
 
+@using Microsoft.AspNetCore.Http
+
 @{
     ViewData["Title"] = "Mensajes";
 }
@@ -9,32 +11,24 @@
 }
 
 <div class="container-fluid vh-100 d-flex flex-column">
-    <!-- Header -->
-    <div class="row bg-light p-2 align-items-center shadow-sm">
-        <div class="col-3 d-flex align-items-center">
-            <img src="/images/logo.png" alt="PuppyBond Logo" style="height: 40px;" />
-            <h5 class="ms-2">PuppyBond</h5>
-        </div>
-        <div class="col-6">
-            <input type="text" class="form-control" placeholder="Buscar" />
-        </div>
-        <div class="col-3 d-flex justify-content-end align-items-center">
-            <i class="bi bi-bell me-3" style="font-size: 1.5rem;"></i>
-            <i class="bi bi-chat-dots me-3" style="font-size: 1.5rem;"></i>
-            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="row flex-grow-1">
         <!-- Sidebar -->
         <div class="col-3 border-end p-3 overflow-auto">
             <!-- TODO: Mostrar nombre en lugar de correo -->
-            @foreach (var item in Model)
+            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email))
             {
                 <div class="user-item d-flex align-items-center mb-3">
                     <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
                     <a href="/Mensajes/Index?usuarioEmail=@item.EmailUsuarioRecibe"><span>@item.EmailUsuarioRecibe</span></a>
+                </div>
+            }
+            <!-- Imprime usuarios que te han enviado mensajes, pero tu a ellos no -->
+            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).Any(msg2 =>  msg.EmailUsuarioEnvia == msg2.EmailUsuarioRecibe)))
+            {
+                <div class="user-item d-flex align-items-center mb-3">
+                    <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
+                    <a href="/Mensajes/Index?usuarioEmail=@item.EmailUsuarioEnvia"><span>@item.EmailUsuarioEnvia</span></a>
                 </div>
             }
         </div>
@@ -46,24 +40,27 @@
                 {
                     @if (usuario.Email == item.EmailUsuarioRecibe)
                     {
-                        <div class="message bg-light p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                        <div class="message w-50 bg-light p-2 rounded mb-2 align-self-start">@item.Contenido</div>
                     }
                     @if (usuario.Email == item.EmailUsuarioEnvia)
                     {
-                        <div class="message bg-primary p-2 rounded mb-2 align-self-start">@item.Contenido</div>
+                        <div class="message w-75 bg-primary p-2 rounded mb-2 align-self-start">@item.Contenido</div>
                     }
                 }
-
-                <div class="message bg-light p-2 rounded mb-2 align-self-start">
-                    <img src="/images/map-sample.png" alt="Mapa" style="width: 100%; max-width: 200px;" />
-                </div>
             </div>
-            <div class="chat-input d-flex align-items-center p-2 border-top">
-                <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." />
+            @{
+                //Obtiene el correo del usuario a enviar el mensaje desde query strings
+                Microsoft.Extensions.Primitives.StringValues queryVal;
+                Context.Request.Query.TryGetValue("correoUsuario", out queryVal);
+                string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).First().EmailUsuarioRecibe;
+            }
+            <form action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
+                <input type="hidden" name="correoReceptor" value="@correoReceptor" />
+                <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." name="contenido" required />
                 <button class="btn btn-primary">
-                    <i class="bi bi-send"></i>
+                    Enviar
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -81,11 +78,11 @@
     .user-item {
         cursor: pointer;
         transition: background-color 0.3s ease;
-    }
 
-        .user-item:hover {
+        &:hover {
             background-color: #f8f9fa;
         }
+    }
 
     .chat-messages {
         background-color: #e9ecef;
@@ -93,7 +90,6 @@
     }
 
     .message {
-        max-width: 60%;
         word-wrap: break-word;
     }
 
