@@ -94,8 +94,7 @@ namespace WebApplication1.Controllers
             }
         }
         
-        //POST: UsuarioController/Logout
-        [HttpPost]
+        //GET: UsuarioController/Logout
         public ActionResult Logout()
         {
             SessionInitialize();

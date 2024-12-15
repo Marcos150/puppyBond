@@ -14,9 +14,19 @@
         <div class="icons d-flex">
             <a href="#" class="icon-link mx-2" aria-label="Notificaciones">🔔</a>
             <a asp-controller="Mensajes" asp-action="Index" class="icon-link mx-2" aria-label="Mensajes">💬</a>
-            <a asp-controller="Mensajes" asp-action="Index" class="icon-link mx-2" aria-label="Mensajes">👤</a>
-
-            <a href="#" class="icon-link mx-2" aria-label="Perfil"></a>
+            <span class="icon-link mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" data-bs-content="
+                <ul>
+                    <li><a>Mi mascota</a></li>
+                    <li><a>Mis datos</a></li>
+                    <li><a>ℹ️ ¿Necesitas ayuda?</a></li>
+                    <li><a href='/Usuario/Logout'>🚪 Cerrar sesión</a></li>
+                </ul>
+            " aria-label="Perfil">👤</span>
         </div>
     </div>
 </header>
+
+<script defer>
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
