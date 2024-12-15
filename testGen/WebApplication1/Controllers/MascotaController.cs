@@ -6,6 +6,8 @@ using TestGen.ApplicationCore.EN.DSM;
 using WebApplication1.Models;
 using WebApplication1.Assemblers;
 using WebRentacar.Controllers;
+using TestGen.ApplicationCore.CP.DSM;
+using TestGen.Infraestructure.CP;
 
 namespace WebApplication1.Controllers
 {
@@ -47,13 +49,12 @@ namespace WebApplication1.Controllers
             try
             {
                 SessionInitialize();
-                MatchRepository matchRepository = new MatchRepository(session);
                 UsuarioRepository usuarioRepository = new UsuarioRepository(session);
-                MatchCEN matchCen = new MatchCEN(matchRepository);
+                MatchCP matchCp = new MatchCP(new SessionCPNHibernate());
                 UsuarioCEN usuarioCen = new UsuarioCEN(usuarioRepository);
 
                 UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
-                matchCen.Nuevo(usuario.Mascota.Id, receptorId, "Universidad de Alicante");
+                matchCp.Nuevo(usuario.Mascota.Id, receptorId, "Universidad de Alicante");
 
                 MascotaRepository mascotaRepository = new MascotaRepository(session);
                 MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);

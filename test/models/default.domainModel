@@ -100,6 +100,14 @@
       <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_EU7ZIJ9DEe-bhdCUfQDBjg" name="obtenerValoracionMedia" operationType="CustomTransaction" type="Double">
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_EU_qkJ9DEe-bhdCUfQDBjg" name="p_oid" type="OID" typeObject="_85Fq0IrXEe-ZMpBD3AnAxw"/>
       </operations>
+      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_Rir5YLsaEe-uMPyMlCCpfg" name="agregarMatchEnviado" operationType="Relationer" type="Void" relatedRol="_WiysEYrcEe-ZMpBD3AnAxw">
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_Wn0nMLsaEe-uMPyMlCCpfg" name="p_Mascota_OID" type="OID" typeObject="_85Fq0IrXEe-ZMpBD3AnAxw"/>
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_Wn0nMbsaEe-uMPyMlCCpfg" name="p_matchEnviados_OIDs" type="OID" collectionType="List" typeObject="_sOAisIrZEe-ZMpBD3AnAxw"/>
+      </operations>
+      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_TUTA8LsaEe-uMPyMlCCpfg" name="agregarMatchRecibido" operationType="Relationer" type="Void" relatedRol="_W_DxUYrcEe-ZMpBD3AnAxw">
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_X2yUsLsaEe-uMPyMlCCpfg" name="p_Mascota_OID" type="OID" typeObject="_85Fq0IrXEe-ZMpBD3AnAxw"/>
+        <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_X2y7wLsaEe-uMPyMlCCpfg" name="p_matchRecibidos_OIDs" type="OID" collectionType="List" typeObject="_sOAisIrZEe-ZMpBD3AnAxw"/>
+      </operations>
       <attributes xmi:type="es.ua.dlsi.ooh:Attribute" xmi:id="_-KfoUIrXEe-ZMpBD3AnAxw" alias="nombre" name="nombre"/>
       <attributes xmi:type="es.ua.dlsi.ooh:Attribute" xmi:id="__NcTEIrXEe-ZMpBD3AnAxw" alias="raza" name="raza"/>
       <attributes xmi:type="es.ua.dlsi.ooh:Attribute" xmi:id="_EWAvYIrYEe-ZMpBD3AnAxw" alias="sexo" name="sexo" type="Enum" typeEnum="_DI154JE0Ee-wWvdhHhO-yw"/>
@@ -147,7 +155,7 @@
       <enumerationLiterals xmi:type="es.ua.dlsi.ooh:EnumerationLiteral" xmi:id="_K9FZsJBtEe-5OvW4vLI-KQ" name="encuentro" value="4"/>
     </elements>
     <elements xmi:type="es.ua.dlsi.ooh:Class" xmi:id="_sOAisIrZEe-ZMpBD3AnAxw" name="Match" alias="Match" asociationTarget="_WiysEIrcEe-ZMpBD3AnAxw _W_DxUIrcEe-ZMpBD3AnAxw" associationOrigin="_p6-qsJBsEe-5OvW4vLI-KQ">
-      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_7dW6YYrcEe-ZMpBD3AnAxw" name="nuevo" operationType="New" description="Inicializa estado a pendiente" type="Object" typeObject="_sOAisIrZEe-ZMpBD3AnAxw" automaticSynchronize="false" customized="true">
+      <operations xmi:type="es.ua.dlsi.ooh:Operation" xmi:id="_7dW6YYrcEe-ZMpBD3AnAxw" name="nuevo" operationType="New" description="Inicializa estado a pendiente" type="Object" typeObject="_sOAisIrZEe-ZMpBD3AnAxw" automaticSynchronize="false" customizedTransaction="true">
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_J29fIZBtEe-5OvW4vLI-KQ" name="p_mascotaEnvia" type="OID" typeObject="_85Fq0IrXEe-ZMpBD3AnAxw"/>
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_J29fIpBtEe-5OvW4vLI-KQ" name="p_mascotaRecibe" type="OID" typeObject="_85Fq0IrXEe-ZMpBD3AnAxw"/>
         <arguments xmi:type="es.ua.dlsi.ooh:Argument" xmi:id="_J29fI5BtEe-5OvW4vLI-KQ" name="p_ubicacion"/>
@@ -508,6 +516,20 @@
           <styles xmi:type="notation:FontStyle" xmi:id="_EVA4sp9DEe-bhdCUfQDBjg" fontName="Segoe UI"/>
           <styles xmi:type="notation:FillStyle" xmi:id="_EVA4s59DEe-bhdCUfQDBjg"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EVA4tJ9DEe-bhdCUfQDBjg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_RixY8LsaEe-uMPyMlCCpfg" type="3004" element="_Rir5YLsaEe-uMPyMlCCpfg">
+          <children xmi:type="notation:DecorationNode" xmi:id="_RixY9bsaEe-uMPyMlCCpfg" type="5004"/>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_RixY8bsaEe-uMPyMlCCpfg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_RixY8rsaEe-uMPyMlCCpfg" fontName="Segoe UI"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_RixY87saEe-uMPyMlCCpfg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RixY9LsaEe-uMPyMlCCpfg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_TUToALsaEe-uMPyMlCCpfg" type="3004" element="_TUTA8LsaEe-uMPyMlCCpfg">
+          <children xmi:type="notation:DecorationNode" xmi:id="_TUToBbsaEe-uMPyMlCCpfg" type="5004"/>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_TUToAbsaEe-uMPyMlCCpfg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_TUToArsaEe-uMPyMlCCpfg" fontName="Segoe UI"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_TUToA7saEe-uMPyMlCCpfg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TUToBLsaEe-uMPyMlCCpfg"/>
         </children>
         <styles xmi:type="notation:SortingStyle" xmi:id="_85Pb2orXEe-ZMpBD3AnAxw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_85Pb24rXEe-ZMpBD3AnAxw"/>

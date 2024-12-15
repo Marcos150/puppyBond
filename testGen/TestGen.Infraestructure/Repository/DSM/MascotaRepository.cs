@@ -397,5 +397,82 @@ public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MascotaEN
 
         return result;
 }
+public void AgregarMatchEnviado (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchEnviados_OIDs)
+{
+        TestGen.ApplicationCore.EN.DSM.MascotaEN mascotaEN = null;
+        try
+        {
+                SessionInitializeTransaction ();
+                mascotaEN = (MascotaEN)session.Load (typeof(MascotaNH), p_Mascota_OID);
+                TestGen.ApplicationCore.EN.DSM.MatchEN matchEnviadosENAux = null;
+                if (mascotaEN.MatchEnviados == null) {
+                        mascotaEN.MatchEnviados = new System.Collections.Generic.List<TestGen.ApplicationCore.EN.DSM.MatchEN>();
+                }
+
+                foreach (int item in p_matchEnviados_OIDs) {
+                        matchEnviadosENAux = new TestGen.ApplicationCore.EN.DSM.MatchEN ();
+                        matchEnviadosENAux = (TestGen.ApplicationCore.EN.DSM.MatchEN)session.Load (typeof(TestGen.Infraestructure.EN.DSM.MatchNH), item);
+                        matchEnviadosENAux.MascotaEnvia = mascotaEN;
+
+                        mascotaEN.MatchEnviados.Add (matchEnviadosENAux);
+                }
+
+
+                session.Update (mascotaEN);
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is TestGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new TestGen.ApplicationCore.Exceptions.DataLayerException ("Error in MascotaRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+}
+
+public void AgregarMatchRecibido (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchRecibidos_OIDs)
+{
+        TestGen.ApplicationCore.EN.DSM.MascotaEN mascotaEN = null;
+        try
+        {
+                SessionInitializeTransaction ();
+                mascotaEN = (MascotaEN)session.Load (typeof(MascotaNH), p_Mascota_OID);
+                TestGen.ApplicationCore.EN.DSM.MatchEN matchRecibidosENAux = null;
+                if (mascotaEN.MatchRecibidos == null) {
+                        mascotaEN.MatchRecibidos = new System.Collections.Generic.List<TestGen.ApplicationCore.EN.DSM.MatchEN>();
+                }
+
+                foreach (int item in p_matchRecibidos_OIDs) {
+                        matchRecibidosENAux = new TestGen.ApplicationCore.EN.DSM.MatchEN ();
+                        matchRecibidosENAux = (TestGen.ApplicationCore.EN.DSM.MatchEN)session.Load (typeof(TestGen.Infraestructure.EN.DSM.MatchNH), item);
+                        matchRecibidosENAux.MascotaRecibe = mascotaEN;
+
+                        mascotaEN.MatchRecibidos.Add (matchRecibidosENAux);
+                }
+
+
+                session.Update (mascotaEN);
+                SessionCommit ();
+        }
+
+        catch (Exception ex) {
+                SessionRollBack ();
+                if (ex is TestGen.ApplicationCore.Exceptions.ModelException)
+                        throw;
+                else throw new TestGen.ApplicationCore.Exceptions.DataLayerException ("Error in MascotaRepository.", ex);
+        }
+
+
+        finally
+        {
+                SessionClose ();
+        }
+}
 }
 }

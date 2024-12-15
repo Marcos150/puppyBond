@@ -84,5 +84,17 @@ public System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MascotaEN
 {
         return _IMascotaRepository.LeerPorSexo (sexo);
 }
+public void AgregarMatchEnviado (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchEnviados_OIDs)
+{
+        //Call to MascotaRepository
+
+        _IMascotaRepository.AgregarMatchEnviado (p_Mascota_OID, p_matchEnviados_OIDs);
+}
+public void AgregarMatchRecibido (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchRecibidos_OIDs)
+{
+        //Call to MascotaRepository
+
+        _IMascotaRepository.AgregarMatchRecibido (p_Mascota_OID, p_matchRecibidos_OIDs);
+}
 }
 }

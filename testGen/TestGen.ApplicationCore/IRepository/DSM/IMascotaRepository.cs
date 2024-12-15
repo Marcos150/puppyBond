@@ -41,5 +41,12 @@ System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MascotaEN> LeerP
 
 
 System.Collections.Generic.IList<TestGen.ApplicationCore.EN.DSM.MascotaEN> LeerPorSexo (TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum ? sexo);
+
+
+
+
+void AgregarMatchEnviado (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchEnviados_OIDs);
+
+void AgregarMatchRecibido (int p_Mascota_OID, System.Collections.Generic.IList<int> p_matchRecibidos_OIDs);
 }
 }
