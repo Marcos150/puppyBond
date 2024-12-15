@@ -27,6 +27,7 @@ public void EnviarMensaje (string p_oid, string receptor, string contenido)
 
         UsuarioCEN usuarioCEN = null;
         MensajeCEN mensajeCEN = null;
+        NotificacionCEN notificacionCEN = null;
 
         try
         {
@@ -35,28 +36,34 @@ public void EnviarMensaje (string p_oid, string receptor, string contenido)
 
                 // Obten el usuario emisor y receptor usando su ID
                 usuarioCEN = new UsuarioCEN (CPSession.UnitRepo.UsuarioRepository);
+                notificacionCEN = new NotificacionCEN (CPSession.UnitRepo.NotificacionRepository);
                 UsuarioEN emisorEN = usuarioCEN.LeerOID (p_oid);
                 UsuarioEN receptorEN = usuarioCEN.LeerOID (receptor);
+
 
                 // Verificar que el emisor y receptor no sean nulos
                 if (emisorEN == null || receptor == null) {
                         throw new Exception ("Emisor o receptor no valido.");
                 }
 
-                IList<UsuarioEN> usuariosMatcheadosEmisor = usuarioCEN.ObtenerUsuariosMatcheados(p_oid);
-
-                //Comprueba que el emisor este matcheado con el receptor
-                if (!usuariosMatcheadosEmisor.Where(usu => usu.Email == receptor).Any())
-                {
-                    throw new Exception("El receptor no esta matcheado con el emisor");
-                }
+                IList<UsuarioEN> usuariosMatcheadosEmisor = usuarioCEN.ObtenerUsuariosMatcheados (p_oid);
 
                 // Crear el mensaje utilizando MensajeCEN
                 mensajeCEN = new MensajeCEN (CPSession.UnitRepo.MensajeRepository);
                 int mensajeId = mensajeCEN.Nuevo (contenido, emisorEN.Email, receptorEN.Email);
 
-                // Anyadir el mensaje a las listas de mensajes emitidos y recibidos
                 MensajeEN mensaje = mensajeCEN.LeerOID (mensajeId);
+
+                int idNotif = notificacionCEN.Nuevo (receptorEN.Email, "Tienes un mensaje de:<br>" + emisorEN.Nombre);
+                NotificacionEN notif = notificacionCEN.LeerOID (idNotif);
+                notif.Mensaje = mensaje;
+
+                //Si hace mas de 3 dias desde el ultimo mensaje, enviar correo
+                if (DateTime.Now - receptorEN.MensajesRecibidos.Where (msg => msg.Emisor.Email == emisorEN.Email).Last ().Fecha > TimeSpan.FromDays (3)) {
+                        notificacionCEN.EnviarCorreo (idNotif);
+                }
+
+                // Anyadir el mensaje a las listas de mensajes emitidos y recibidos
                 emisorEN.MensajesEmitidos.Add (mensaje);
                 receptorEN.MensajesRecibidos.Add (mensaje);
 

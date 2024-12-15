@@ -14,7 +14,7 @@
     <!-- Main Content -->
     <div class="row flex-grow-1">
         <!-- Sidebar -->
-        <div class="col-3 border-end p-3 overflow-auto">
+        <div id="contenedorUsuarios" class="col-3 border-end p-3 overflow-auto">
             <!-- TODO: Mostrar nombre en lugar de correo -->
             @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email))
             {
@@ -24,7 +24,7 @@
                 </div>
             }
             <!-- Imprime usuarios que te han enviado mensajes, pero tu a ellos no -->
-            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).Any(msg2 =>  msg.EmailUsuarioEnvia == msg2.EmailUsuarioRecibe)))
+            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => msg.EmailUsuarioEnvia != usuario.Email))
             {
                 <div class="user-item d-flex align-items-center mb-3">
                     <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
@@ -66,7 +66,7 @@
                 //Obtiene el correo del usuario a enviar el mensaje desde query strings
                 Microsoft.Extensions.Primitives.StringValues queryVal;
                 Context.Request.Query.TryGetValue("correoUsuario", out queryVal);
-                string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).First().EmailUsuarioRecibe;
+                string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).FirstOrDefault()?.EmailUsuarioRecibe ?? Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => msg.EmailUsuarioEnvia != usuario.Email).First().EmailUsuarioEnvia;
             }
             <form id="formMensaje" action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
                 <input type="hidden" name="correoReceptor" value="@correoReceptor" />
@@ -77,6 +77,15 @@
             </form>
             <button id="btnUbicacion" type="button" class="btn btn-secondary">Enviar ubicación</button>
             <script>
+                //Quita los contactos repetidos. Lo siento, no hay tiempo para hacerlo mejor
+                const divs = document.querySelectorAll("#contenedorUsuarios > div");
+                const divsArray = Array.from(divs);
+                const divsContent = divsArray.map(div => div.innerHTML);
+                const uniqueDivsContent = [...new Set(divsContent)];
+                const duplicates = divsArray.filter((div, index) => divsContent.indexOf(uniqueDivsContent[index]) !== index);
+                duplicates.forEach(duplicate => duplicate.remove());
+
+
                 document.getElementById("btnUbicacion").addEventListener("click", () => {
                     navigator.geolocation.getCurrentPosition((position) => {
                         const lat = position.coords.latitude;
