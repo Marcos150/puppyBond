@@ -12,15 +12,13 @@
 
         <!-- Iconos -->
         <div class="icons d-flex">
-            <a href="#" class="icon-link mx-2" aria-label="Notificaciones">🔔</a>
+            <span class="icon-link mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" data-bs-content="Cargando..." aria-label="Notificaciones">🔔</span>
             <a asp-controller="Mensajes" asp-action="Index" class="icon-link mx-2" aria-label="Mensajes">💬</a>
             <span class="icon-link mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" data-bs-content="
-                <ul>
-                    <li><a>Mi mascota</a></li>
-                    <li><a>Mis datos</a></li>
-                    <li><a>ℹ️ ¿Necesitas ayuda?</a></li>
-                    <li><a href='/Usuario/Logout'>🚪 Cerrar sesión</a></li>
-                </ul>
+                    <p><a>Mi mascota</a></p>
+                    <p><a>Mis datos</a></p>
+                    <p><a>ℹ️ ¿Necesitas ayuda?</a></p>
+                    <p><a href='/Usuario/Logout'>🚪 Cerrar sesión</a></p>
             " aria-label="Perfil">👤</span>
         </div>
     </div>
@@ -28,5 +26,28 @@
 
 <script defer>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    popoverTriggerList[1] = new bootstrap.Popover(popoverTriggerList[1]);
+    fetch("/Notificacion/Obtener").then(response => response.json()).then(data => {
+        const notifs = [];
+        for (msg of data) {
+            let contenido = "";
+            if (msg.mensaje != null) {
+                contenido = "Tienes un mensaje de:<br>" + msg.mensaje.emailUsuarioEnvia;
+            }
+            else if (msg.MatchEnvia != null) {
+                contenido = "Solicitud de amistad<br>" + msg.contenido;
+            }
+            else {
+                contenido = msg.contenido;
+            }
+
+            notifs.push(contenido);
+        }
+        const popoverContent = `
+                ${notifs.map(ntf => `<p><a>${ntf}</a></p><hr>`).join("")}
+        `;
+        popoverTriggerList[0].setAttribute("data-bs-content", popoverContent);
+
+        popoverTriggerList[0] = new bootstrap.Popover(popoverTriggerList[0]);
+    });
 </script>

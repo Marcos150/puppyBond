@@ -10,8 +10,10 @@ namespace WebApplication1.Assemblers
             NotificacionViewModel model = new()
             {
                 Id = en.Id,
-                UsuarioRecibe = en.UsuarioRecibe?.Email ?? "N/A", // Manejo de nulos
-                Contenido = en.Contenido
+                UsuarioRecibe = en.UsuarioRecibe.Email,
+                Contenido = en.Contenido,
+                Mensaje = en.Mensaje != null ? new MensajeAssembler().ConvertirENToModel(en.Mensaje) : null,
+                MatchEnvia = en.MatchEnvia != null ? new MatchAssembler().ConvertirENToModel(en.MatchEnvia) : null
             };
 
             return model;
