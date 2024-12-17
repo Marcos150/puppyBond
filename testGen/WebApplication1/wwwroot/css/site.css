@@ -70,3 +70,73 @@ header {
         color: black;
     }
 }
+
+/* Estilos generales */
+body {
+    height: 100%;
+    background-color: #F6F2EE;
+    padding: 0;
+}
+
+/* Enlaces */
+a {
+    color: #496D8C;
+    text-decoration: none;
+}
+
+/* Botones */
+button {
+    background-color: #253B59;
+    color: #F6F2EE;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #253B59;
+    color: #F6F2EE;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #FF5C89;
+}
+
+footer a:hover {
+    color: #F2066F;
+}
+
+/* Contenedores */
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #F9BBDD;
+    border-radius: 10px;
+}
+
+.btn-link:hover {
+    transform: scale(1.2);
+}
+
+/* Ajuste de imágenes */
+.img-fluid {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajuste general de acciones */
+.actions {
+    margin-top: 10px;
+}
