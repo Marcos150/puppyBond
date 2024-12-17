@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TestGen.ApplicationCore.CEN.DSM;
 using TestGen.ApplicationCore.EN.DSM;
+using TestGen.Infraestructure.CP;
 using TestGen.Infraestructure.Repository.DSM;
 using WebApplication1.Assemblers;
 using WebApplication1.Models;
@@ -46,7 +47,7 @@ namespace WebApplication1.Controllers
             }
             HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
             SessionClose();
-            return RedirectToAction("Index2", "Mascota");
+            return RedirectToAction("Register", "Mascota");
         }
 
         //POST: UsuarioController
@@ -89,7 +90,7 @@ namespace WebApplication1.Controllers
                 SessionClose();
 
                 // Redirigir a la página principal
-                return RedirectToAction("Index", "Mascota");
+                return RedirectToAction("Index2", "Mascota");
             }
             catch (Exception ex)
             {
@@ -122,13 +123,14 @@ namespace WebApplication1.Controllers
                 // Mantener el email original ya que es el identificador
                 var usuarioOriginal = HttpContext.Session.Get<UsuarioViewModel>("usuario");
                 usuarioViewModel.Email = usuarioOriginal.Email;
+                usuarioViewModel.Mascota = usuarioOriginal.Mascota;
 
                 // Actualizar los datos del usuario
                 usuarioCEN.Modificar(
                     usuarioViewModel.Email,
                     usuarioViewModel.Nombre,
                     usuarioViewModel.Apellidos,
-                    usuarioViewModel.Pass,
+                    usuarioOriginal.Pass,
                     usuarioViewModel.Disponibilidad,
                     usuarioViewModel.Ubicacion
                 );
@@ -137,7 +139,7 @@ namespace WebApplication1.Controllers
                 HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
                 SessionClose();
 
-                return RedirectToAction("Index2");
+                return RedirectToAction("Editar_Perfil", "Usuario");
             }
             catch (Exception ex)
             {

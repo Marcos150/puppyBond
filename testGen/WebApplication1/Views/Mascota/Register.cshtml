@@ -1,0 +1,92 @@
+﻿@model WebApplication1.Models.MascotaViewModel
+@{
+    ViewData["Title"] = "Registro de Mascota";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="register-box border rounded p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-3">REGISTRAR MASCOTA</h2>
+
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label">Nombre</label>
+                <input asp-for="Name" class="form-control" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Raza" class="control-label">Raza</label>
+                <input asp-for="Raza" class="form-control" required />
+                <span asp-validation-for="Raza" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Sexo" class="control-label">Sexo</label>
+                <select asp-for="Sexo" class="form-control" required>
+                    <option value="">Seleccionar</option>
+                    <option value="Macho">Macho</option>
+                    <option value="Hembra">Hembra</option>
+                </select>
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Tamanyo" class="control-label">Tamaño</label>
+                <select asp-for="Tamanyo" class="form-control" required>
+                    <option value="">Seleccionar</option>
+                    <option value="Pequeño">Pequeño</option>
+                    <option value="Mediano">Mediano</option>
+                    <option value="Grande">Grande</option>
+                </select>
+                <span asp-validation-for="Tamanyo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Edad" class="control-label">Edad</label>
+                <input asp-for="Edad" class="form-control" required />
+                <span asp-validation-for="Edad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Descripcion" class="control-label">Descripción</label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Imagen" class="control-label">URL de Imagen</label>
+                <input asp-for="Imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-dark w-100">Registrar Mascota</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .register-box {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-dark {
+        background-color: #555;
+        border: none;
+        font-weight: bold;
+    }
+
+        .btn-dark:hover {
+            background-color: #333;
+        }
+</style>

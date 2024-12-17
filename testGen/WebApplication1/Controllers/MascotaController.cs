@@ -13,6 +13,40 @@ namespace WebApplication1.Controllers
 {
     public class MascotaController : BasicController
     {
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult Perfil_ajeno(int id)
+        {
+            SessionInitialize();
+            try
+            {
+                MascotaRepository mascotaRepository = new MascotaRepository(session);
+                MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
+
+                // Retrieve the specific mascot by ID
+                MascotaEN mascotaEN = mascotaCen.LeerOID(id);
+
+                // Convert to ViewModel
+                MascotaViewModel mascotaViewModel = new MascotaAssembler().ConvertirENToModel(mascotaEN);
+
+                SessionClose();
+                return View(mascotaViewModel);
+            }
+            catch (Exception)
+            {
+                SessionClose();
+                // Handle error, perhaps redirect to an error page or back to Index2
+                return RedirectToAction("Index2");
+            }
+        }
+
+        public IActionResult Perfil_propio()
+        {
+            return View();
+        }
+
         // GET: HomeController1
         public ActionResult Index()
         {
@@ -69,11 +103,11 @@ namespace WebApplication1.Controllers
 
                 SessionClose();
 
-                return RedirectToAction("Index2", new Dictionary<string, bool>() { { "xd", true } });
+                return RedirectToAction("Index2", new { Values = true });
             }
             catch
             {
-                return RedirectToAction("Index2", new Dictionary<string, bool>() { { "xd", false } });
+                return RedirectToAction("Index2", new { Values = false });
             }
         }
 
