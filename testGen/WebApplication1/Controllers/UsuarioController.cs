@@ -53,6 +53,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Register(UsuarioViewModel register)
         {
+            SessionInitialize();
             UsuarioRepository usuarioRepository = new UsuarioRepository(session);
             UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
 
@@ -82,14 +83,13 @@ namespace WebApplication1.Controllers
                 }
 
                 // Cargar el usuario recién creado y guardar en sesión
-                SessionInitialize();
                 UsuarioEN usuarioEN = usuarioCEN.LeerOID(register.Email);
                 UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
                 HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
                 SessionClose();
 
                 // Redirigir a la página principal
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Mascota");
             }
             catch (Exception ex)
             {
