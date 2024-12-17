@@ -1,0 +1,76 @@
+﻿@model MascotaViewModel
+
+@{
+    ViewData["Title"] = "Perfil del Perro";
+}
+
+<div class="container-fluid">
+    <!-- Contenido principal -->
+    <div class="col-md-9 p-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Iconos de acciones -->
+            <div class="action-icons d-flex gap-3">
+                <i class="fas fa-bell fa-lg"></i>
+                <i class="fas fa-comment fa-lg"></i>
+                <i class="fas fa-user-circle fa-lg"></i>
+            </div>
+        </div>
+
+        <!-- Información del perro -->
+        <div class="row">
+            <!-- Sección de imágenes -->
+            <div class="col-md-6">
+                <div class="images-grid d-grid gap-2" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
+                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
+                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
+                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
+                </div>
+            </div>
+            <!-- Detalles del perro -->
+            <div class="col-md-6">
+                <h2>@Model.Name</h2>
+                <p><strong>Edad:</strong> @Model.Edad años</p>
+                <p><strong>Raza:</strong> @Model.Raza</p>
+                <p><strong>Sexo:</strong> @Model.Sexo</p>
+                <p><strong>Descripción:</strong> @Model.Descripcion</p>
+
+                <!-- Botón de solicitud -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-primary">
+                        🐾 Mandar solicitud de amistad
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disponibilidad y reseñas -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h5>Disponibilidad</h5>
+                <p>Lunes a Viernes - 9:00 AM a 6:00 PM</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Reseñas</h5>
+                <textarea class="form-control mb-2" rows="3" placeholder="Escribe una reseña..."></textarea>
+                <button class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos opcionales -->
+<style>
+    .pending-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .pet-image {
+        background-color: #f8f9fa;
+    }
+
+    .action-icons i {
+        cursor: pointer;
+    }
+</style>

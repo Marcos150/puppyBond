@@ -39,6 +39,11 @@ namespace WebApplication1.Controllers
 
             UsuarioEN usuarioEN = usuarioCEN.LeerOID(login.Email);
             UsuarioViewModel usuarioViewModel = new UsuarioAssembler().ConvertirENToModel(usuarioEN);
+            // Verificar que la conversión fue exitosa
+            if (usuarioViewModel == null)
+            {
+                throw new Exception("Error al convertir usuario a ViewModel");
+            }
             HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
             SessionClose();
             return RedirectToAction("Index2", "Mascota");
@@ -93,7 +98,54 @@ namespace WebApplication1.Controllers
                 return View(register);
             }
         }
-        
+
+        public ActionResult Editar_Perfil()
+        {
+            var usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (usuario == null)
+            {
+                return RedirectToAction("Login");
+            }
+            Console.WriteLine($"Usuario cargado: {usuario.Nombre}, {usuario.Email}");
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public ActionResult Editar_Perfil(UsuarioViewModel usuarioViewModel)
+        {
+            try
+            {
+                SessionInitialize();
+                UsuarioRepository usuarioRepository = new UsuarioRepository(session);
+                UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
+
+                // Mantener el email original ya que es el identificador
+                var usuarioOriginal = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+                usuarioViewModel.Email = usuarioOriginal.Email;
+
+                // Actualizar los datos del usuario
+                usuarioCEN.Modificar(
+                    usuarioViewModel.Email,
+                    usuarioViewModel.Nombre,
+                    usuarioViewModel.Apellidos,
+                    usuarioViewModel.Pass,
+                    usuarioViewModel.Disponibilidad,
+                    usuarioViewModel.Ubicacion
+                );
+
+                // Actualizar la sesión con los nuevos datos
+                HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
+                SessionClose();
+
+                return RedirectToAction("Index2");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al actualizar el perfil: " + ex.Message);
+                return View(usuarioViewModel);
+            }
+        }
+
         //GET: UsuarioController/Logout
         public ActionResult Logout()
         {

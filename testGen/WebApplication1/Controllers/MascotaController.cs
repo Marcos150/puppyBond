@@ -69,11 +69,11 @@ namespace WebApplication1.Controllers
 
                 SessionClose();
 
-                return RedirectToAction("Index2", new Dictionary<string, bool>(){ { "xd",true } });
+                return RedirectToAction("Index2", new Dictionary<string, bool>() { { "xd", true } });
             }
             catch
             {
-                return RedirectToAction("Index2", new Dictionary<string, bool>(){ { "xd",false } });
+                return RedirectToAction("Index2", new Dictionary<string, bool>() { { "xd", false } });
             }
         }
 

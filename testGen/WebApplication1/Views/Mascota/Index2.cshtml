@@ -25,7 +25,7 @@
         location.href = url;
     </script>
 }
-    
+
 <script>
     const params = new URLSearchParams(document.location.search);
     const success = params.get("Values");
@@ -86,10 +86,10 @@
                     <div class="carousel-item active">
                         <img src="https://cdn.leonardo.ai/users/190c8fc4-abe6-49e9-b68e-b51dfe9e27fc/generations/18530c74-ae15-45a1-b9e3-eec9aab59ad0/Leonardo_Phoenix_Create_an_image_that_showcases_a_fun_and_vibr_2.jpg" class="d-block w-100" alt="...">
                     </div>
-                    
+
                     @foreach (var item in Model)
                     {
-                        <div class="carousel-item" id="@item.Id" >
+                        <div class="carousel-item" id="@item.Id">
                             <img src="https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg" class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>@item.Name</h5>
@@ -112,7 +112,10 @@
                     <form id="formSendMatch">
                         <button class="btn btn-outline-primary" aria-label="Adoptar">🐾</button>
                     </form>
-                    <button class="btn btn-outline-info" aria-label="Información">ℹ</button>
+
+                    <form id="formInformacion">
+                        <button onclick="window.location.href='@Url.Action("Perfil_ajeno", "Mascota")'" class="btn btn-outline-primary btn-lg">ℹ</button>
+                    </form>
 
                     <script>
                         document.getElementById("formSendMatch").addEventListener("submit", (e) => {
@@ -120,6 +123,14 @@
                             const idReceptor = document.querySelector(".carousel-item.active").id;
                             document.getElementById("formSendMatch").action = "/Mascota/EnviarPeticionMatch/" + idReceptor;
                             document.getElementById("formSendMatch").submit();
+                        });
+                    </script>
+
+                    <script>
+                        document.getElementById("formInformacion").addEventListener("submit", (e) => {
+                            e.preventDefault();
+                            const idReceptor = document.querySelector(".carousel-item.active").id;
+                            window.location.href = `/Mascota/Perfil_ajeno/${idReceptor}`;
                         });
                     </script>
                 </div>
