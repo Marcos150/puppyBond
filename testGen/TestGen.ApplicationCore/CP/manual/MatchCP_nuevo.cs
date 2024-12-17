@@ -24,8 +24,8 @@ public TestGen.ApplicationCore.EN.DSM.MatchEN Nuevo (int p_mascotaEnvia, int p_m
 
         MatchCEN matchCEN = null;
         MascotaCEN mascotaCEN = null;
-
-            TestGen.ApplicationCore.EN.DSM.MatchEN result = null;
+        NotificacionCEN notificacionCEN = null;
+        TestGen.ApplicationCore.EN.DSM.MatchEN result = null;
 
 
         try
@@ -33,6 +33,7 @@ public TestGen.ApplicationCore.EN.DSM.MatchEN Nuevo (int p_mascotaEnvia, int p_m
                 CPSession.SessionInitializeTransaction ();
                 matchCEN = new  MatchCEN (CPSession.UnitRepo.MatchRepository);
                 mascotaCEN = new MascotaCEN(CPSession.UnitRepo.MascotaRepository);
+                notificacionCEN = new NotificacionCEN(CPSession.UnitRepo.NotificacionRepository);
 
                 if (p_mascotaEnvia == p_mascotaRecibe) {
                 throw new Exception ("No puedes hacer match contigo mismo");
@@ -64,8 +65,8 @@ public TestGen.ApplicationCore.EN.DSM.MatchEN Nuevo (int p_mascotaEnvia, int p_m
 
                 mascotaCEN.AgregarMatchEnviado(p_mascotaEnvia, [oid]);
                 mascotaCEN.AgregarMatchRecibido(p_mascotaRecibe, [oid]);
-
-
+                int idNotif = notificacionCEN.Nuevo(mascotaCEN.LeerOID(p_mascotaRecibe).Duenyo.Email, "Solicitud de amistad de: " + mascotaCEN.LeerOID(p_mascotaEnvia).Nombre);
+                notificacionCEN.EnviarCorreo(idNotif);
 
                 CPSession.Commit ();
         }
