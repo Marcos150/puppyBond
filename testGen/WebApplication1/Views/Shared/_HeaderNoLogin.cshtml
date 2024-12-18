@@ -2,6 +2,13 @@
     <div class="navbar-brand d-flex align-items-center">
         <a asp-controller="Home" asp-action="Principal"><span class="logo-text">Puppy<span style="color: #ff6f61;">B<span style="font-size: 1.5em;">🐾</span>ND</span></span></a>
     </div>
+    <!-- Barra de búsqueda -->
+    <div class="search-bar d-flex align-items-center flex-grow-1 mx-3">
+        <form asp-controller="Mascota" asp-action="Buscar" method="get" class="w-100 d-flex">
+            <input type="search" name="termino" class="form-control" placeholder="Buscar mascota por nombre..." required />
+            <button type="submit" class="btn btn-outline-primary ms-2">🔍</button>
+        </form>
+    </div>
     <div>
         <a href="/Usuario/Register" class="btn btn-primary mx-2">Crear Cuenta</a>
         <a href="/Usuario/Login" class="btn btn-secondary">Iniciar Sesión</a>

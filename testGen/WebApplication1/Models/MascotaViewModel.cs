@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         public string? Raza { get; set; }
 
         [Display(Prompt ="Escoge el sexo de la mascota", Description="Sexo de la mascota", Name="Sexo")]
-        public SexoPerroEnum? Sexo { get; set; }
+        public SexoPerroEnum Sexo { get; set; }
 
         [Display(Prompt ="Escribe la vacunación de la mascota", Description="Vacunación de la mascota", Name="Vacunación")]
         public string? Vacunacion { get; set; }
@@ -32,7 +32,10 @@ namespace WebApplication1.Models
         public string? Descripcion { get; set; }
 
         [Display(Prompt ="Introduce una imagen de la mascota", Description="Imagen de la mascota", Name="Imagen")]
-        public string? Imagen { get; set; }
+        public IFormFile Imagen { get; set; }
+
+        [ScaffoldColumn(false)]
+        public string ImagenPath { get; set; }
 
         [ScaffoldColumn(false)]
         public IList<MatchViewModel> MatchEnviados { get; set; } = [];

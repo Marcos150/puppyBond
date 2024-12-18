@@ -130,6 +130,51 @@ public static void InitializeData ()
                         "2 anyos", emailUsuarioNuevo2, "Una perrita carinyosa y tranquila");
                 ImprimirVerde ("Mascota 2 creada correctamente");
 
+                // Creación de usuarios (CRUD CUSTOMIZADA)
+                string emailUsuarioNuevo3 = usuariocen.Nuevo("Ana", "Martínez", "ana.martinez@example.com", "Ana", "Siempre", "Madrid");
+                ImprimirVerde("Usuario3 creado correctamente");
+                string emailUsuarioNuevo4 = usuariocen.Nuevo("Carlos", "Ruiz", "carlos.ruiz@example.com", "Carlos", "Siempre", "Barcelona");
+                ImprimirVerde("Usuario4 creado correctamente");
+                string emailUsuarioNuevo5 = usuariocen.Nuevo("Lucía", "Gómez", "lucia.gomez@example.com", "Lucía", "Siempre", "Sevilla");
+                ImprimirVerde("Usuario5 creado correctamente");
+                string emailUsuarioNuevo6 = usuariocen.Nuevo("Manuel", "Pérez", "manuel.perez@example.com", "Manuel", "Siempre", "Valencia");
+                ImprimirVerde("Usuario6 creado correctamente");
+                string emailUsuarioNuevo7 = usuariocen.Nuevo("Laura", "Sánchez", "laura.sanchez@example.com", "Laura", "Siempre", "Bilbao");
+                ImprimirVerde("Usuario7 creado correctamente");
+                string emailUsuarioNuevo8 = usuariocen.Nuevo("Javier", "López", "javier.lopez@example.com", "Javier", "Siempre", "Granada");
+                ImprimirVerde("Usuario8 creado correctamente");
+
+                // Creación de mascotas (CRUD CUSTOMIZADA)
+                int mascotaId3 = mascotacen.Nuevo("Rocky", "Pastor Alemán", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho,
+                        "Vacunado", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande,
+                        "4 años", emailUsuarioNuevo3, "Perro leal y protector");
+                ImprimirVerde("Mascota 3 creada correctamente");
+
+                int mascotaId4 = mascotacen.Nuevo("Bella", "Bulldog Francés", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Hembra,
+                        "Vacunada", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.pequeño,
+                        "1 año", emailUsuarioNuevo4, "Perrita juguetona y adorable");
+                ImprimirVerde("Mascota 4 creada correctamente");
+
+                int mascotaId5 = mascotacen.Nuevo("Max", "Beagle", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho,
+                        "Vacunado", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.mediano,
+                        "3 años", emailUsuarioNuevo5, "Perro curioso y activo");
+                ImprimirVerde("Mascota 5 creada correctamente");
+
+                int mascotaId6 = mascotacen.Nuevo("Daisy", "Cocker Spaniel", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Hembra,
+                        "Vacunada", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.mediano,
+                        "2 años", emailUsuarioNuevo6, "Perrita dulce y afectuosa");
+                ImprimirVerde("Mascota 6 creada correctamente");
+
+                int mascotaId7 = mascotacen.Nuevo("Thor", "Husky Siberiano", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Macho,
+                        "Vacunado", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.grande,
+                        "5 años", emailUsuarioNuevo7, "Perro fuerte y energético");
+                ImprimirVerde("Mascota 7 creada correctamente");
+
+                int mascotaId8 = mascotacen.Nuevo("Molly", "Pomerania", TestGen.ApplicationCore.Enumerated.DSM.SexoPerroEnum.Hembra,
+                        "Vacunada", TestGen.ApplicationCore.Enumerated.DSM.TamanyoPerroEnum.pequeño,
+                        "2 años", emailUsuarioNuevo8, "Perrita tierna y cariñosa");
+                ImprimirVerde("Mascota 8 creada correctamente");
+
                 // Creacion de matches (CRUD CUSTOMIZADA)
                 int matchId = matchcen.Nuevo (mascotaId1, mascotaId2, "Alicante");
                 matchcen.Modificar (matchId, TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado, "Alicante");
@@ -177,11 +222,11 @@ public static void InitializeData ()
                 ImprimirVerde ("Foto de mascota 1 cambiada correctamente");
 
                 //Customs de notificacion
-                notificacioncen.EnviarCorreo (notificacionId1);
+                //notificacioncen.EnviarCorreo (notificacionId1);
                 ImprimirVerde ("Correo de notificacion enviado correctamente");
 
                 //Customs de tique de soporte
-                tiquesoportecen.EnviarCorreoSoporte (tiqueId1);
+                //tiquesoportecen.EnviarCorreoSoporte (tiqueId1);
                 ImprimirVerde ("Correo de tique de soporte enviado correctamente");
 
                 // CUSTOM TRANSACTIONS

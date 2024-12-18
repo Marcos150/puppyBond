@@ -10,13 +10,6 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : BasicController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             UsuarioRepository usuarioRepository = new();
@@ -46,6 +39,34 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Contacto_soporte(string Nombre, string Email, string Asunto, string Mensaje)
+        {
+            TiqueSoporteRepository tiqueSoporteRepository = new();
+            TiqueSoporteCEN tiqueSoporteCEN = new(tiqueSoporteRepository);
+            try
+            {
+                UsuarioViewModel user = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Usuario");
+                }
+
+                // Save the ticket and get its ID
+                int tiqueId1 = tiqueSoporteCEN.Nuevo(user.Email, Mensaje);
+
+                // Send support ticket email
+                tiqueSoporteCEN.EnviarCorreoSoporte(tiqueId1);
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                return View();
+            }
+        }
+
         public IActionResult Editar_mascotas()
         {
             return View();
@@ -65,7 +86,6 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

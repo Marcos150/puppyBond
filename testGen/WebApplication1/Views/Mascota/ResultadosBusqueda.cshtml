@@ -1,6 +1,4 @@
-﻿ResultadosBusqueda.cshtml@model IEnumerable<WebApplication1.Models.MascotaViewModel>
-
-    @{
+﻿    @{
         ViewData["Title"] = "Resultados de Búsqueda";
     }
 
@@ -16,7 +14,7 @@
                 {
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            <img src="/imgs/@(mascota.Id).png" class="card-img-top" alt="Imagen de @mascota.Name" />
+                            <img src="/Images/Mascotas/@(mascota.Id + ".png")" alt="Imagen de @mascota.Name" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">@mascota.Name</h5>
                                 <p class="card-text">@mascota.Descripcion</p>

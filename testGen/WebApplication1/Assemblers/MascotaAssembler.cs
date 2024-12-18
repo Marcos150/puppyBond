@@ -17,7 +17,7 @@ namespace WebApplication1.Assemblers
                 Tamanyo = en.Tamanyo,
                 Edad = en.Edad,
                 Descripcion = en.Descripcion,
-                Imagen = en.Imagen,
+                ImagenPath = en.Imagen,
                 MatchEnviados = new MatchAssembler().ConvertirListENToViewModel(en.MatchEnviados),
                 MatchRecibidos = new MatchAssembler().ConvertirListENToViewModel(en.MatchRecibidos)
             };

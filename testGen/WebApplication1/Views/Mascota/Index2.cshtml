@@ -55,18 +55,51 @@
             <div class="pending-list p-3 border rounded bg-light">
                 <h6>Pendientes</h6>
                 <ul class="list-unstyled mt-2">
+                    @if (usuario.Mascota?.MatchEnviados.Count == 0)
                     {
                         <li class="d-flex align-items-center">
                             <i class="fas fa-user-circle me-2"></i> No tienes solicitudes pendientes
                         </li>
                     }
-                    @if (usuario.Mascota.MatchEnviados.Count != 0)
+                    @if (usuario.Mascota?.MatchEnviados.Count != 0)
                     {
-                        @foreach (var item in usuario.Mascota.MatchEnviados)
+                        @foreach (var item in usuario.Mascota!.MatchEnviados)
                         {
                             <li class="d-flex align-items-center">
                                 <i class="fas fa-user-circle me-2"></i> @item.MascotaRecibeNombre
                             </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="pending-list p-3 border rounded bg-light">
+                <h6>Pendientes de aceptar</h6>
+                <ul class="list-unstyled mt-2">
+                    @if (usuario.Mascota?.MatchEnviados.Count == 0)
+                    {
+                        <li class="d-flex align-items-center">
+                            <i class="fas fa-user-circle me-2"></i> No tienes solicitudes pendientes de aceptar
+                        </li>
+                    }
+                    @if (usuario.Mascota?.MatchEnviados.Count != 0)
+                    {
+                        @foreach (var item in usuario.Mascota!.MatchRecibidos)
+                        {
+                            @if (item.Estado == TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.pendiente)
+                            {
+                                <li class="d-flex align-items-center">
+                                    <i class="fas fa-user-circle me-2"></i> @item.MascotaEnviaNombre
+                                    <form action="/Mascota/AceptarMatch" method="get">
+                                        <input type="hidden" value="@item.Id" name="matchId" />
+                                        <button>Aceptar</button>
+                                    </form>
+
+                                    <form action="/Mascota/RechazarMatch" method="get">
+                                        <input type="hidden" value="@item.Id" name="matchId" />
+                                        <button>Rechazar</button>
+                                    </form>
+                                </li>
+                            }
                         }
                     }
                 </ul>
@@ -84,8 +117,8 @@
                     @{ bool activeAssigned = false; }
                     @foreach (var item in Model)
                     {
-                        <div class="carousel-item @(activeAssigned ? "active" : "")" id="@item.Id">
-                            <img src="/imgs/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
+                        <div class="carousel-item @(!activeAssigned ? "active" : "")" id="@item.Id">
+                            <img src="/Images/Mascotas/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>@item.Name</h5>
                                 <p>@item.Descripcion</p>

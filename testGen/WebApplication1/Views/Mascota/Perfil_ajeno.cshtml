@@ -20,12 +20,7 @@
         <div class="row">
             <!-- Sección de imágenes -->
             <div class="col-md-6">
-                <div class="images-grid d-grid gap-2" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
-                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
-                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
-                    <div class="pet-image border rounded" style="height: 150px; background-color: #f8f9fa;"></div>
-                </div>
+                <img src="/Images/Mascotas/@(Model.Id + ".png")" alt="Imagen de @Model.Name" class="d-block w-100">
             </div>
             <!-- Detalles del perro -->
             <div class="col-md-6">
@@ -36,11 +31,14 @@
                 <p><strong>Descripción:</strong> @Model.Descripcion</p>
 
                 <!-- Botón de solicitud -->
-                <div class="text-center mt-3">
-                    <button class="btn btn-primary">
-                        🐾 Mandar solicitud de amistad
-                    </button>
-                </div>
+                <form action="/Mascota/EnviarPeticionMatch/@Model.Id" id="formSendMatch">
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary">
+                            🐾 Mandar solicitud de amistad
+                        </button>
+                    </div>
+                </form>
+
             </div>
         </div>
 

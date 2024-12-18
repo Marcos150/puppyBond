@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         public ActionResult Register(UsuarioViewModel register)
         {
             SessionInitialize();
-            UsuarioRepository usuarioRepository = new UsuarioRepository(session);
+            UsuarioRepository usuarioRepository = new UsuarioRepository();
             UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
 
             // Verificar si ya existe un usuario con el mismo correo
@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers
                 SessionClose();
 
                 // Redirigir a la página principal
-                return RedirectToAction("Index2", "Mascota");
+                return RedirectToAction("Register", "Mascota");
             }
             catch (Exception ex)
             {

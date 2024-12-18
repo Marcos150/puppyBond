@@ -18,7 +18,7 @@
             <span class="icon-link mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" data-bs-content="Cargando..." aria-label="Notificaciones">🔔</span>
             <a asp-controller="Mensajes" asp-action="Index" class="icon-link mx-2" aria-label="Mensajes">💬</a>
             <span class="icon-link mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-html="true" data-bs-content="
-                    <p><a>Mi mascota</a></p>
+                    <p><a href='/Mascota/Mis_mascotas'>Mi mascota</a></p>
                     <p><a href='/Usuario/Editar_Perfil'>Mis datos</a></p>
                     <p><a href='/Home/Contacto_soporte'>ℹ️ ¿Necesitas ayuda?</a></p>
                     <p><a href='/Usuario/Logout'>🚪 Cerrar sesión</a></p>
@@ -37,8 +37,9 @@
             if (msg.mensaje != null) {
                 contenido = "Tienes un mensaje de:<br>" + msg.mensaje.emailUsuarioEnvia;
             }
-            else if (msg.MatchEnvia != null) {
-                contenido = "Solicitud de amistad<br>" + msg.contenido;
+            else if (msg.contenido.includes("amistad")) {
+                console.log("ewfhuihewfs");
+                contenido = msg.contenido + "<button class='btn btn-success btn-sm'>Aceptar</button>";
             }
             else {
                 contenido = msg.contenido;
