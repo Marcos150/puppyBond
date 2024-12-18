@@ -47,7 +47,9 @@ namespace WebApplication1.Controllers
             }
             HttpContext.Session.Set<UsuarioViewModel>("usuario", usuarioViewModel);
             SessionClose();
-            return RedirectToAction("Register", "Mascota");
+            
+            //LLeva a la pagina de crear mascota si no tiene una aun
+            return usuarioViewModel.Mascota != null ? RedirectToAction("Index2", "Mascota") : RedirectToAction("Register", "Mascota");
         }
 
         //POST: UsuarioController
@@ -117,7 +119,7 @@ namespace WebApplication1.Controllers
             try
             {
                 SessionInitialize();
-                UsuarioRepository usuarioRepository = new UsuarioRepository(session);
+                UsuarioRepository usuarioRepository = new UsuarioRepository();
                 UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
 
                 // Mantener el email original ya que es el identificador
@@ -130,7 +132,7 @@ namespace WebApplication1.Controllers
                     usuarioViewModel.Email,
                     usuarioViewModel.Nombre,
                     usuarioViewModel.Apellidos,
-                    usuarioOriginal.Pass,
+                    usuarioViewModel.Pass,
                     usuarioViewModel.Disponibilidad,
                     usuarioViewModel.Ubicacion
                 );

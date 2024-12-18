@@ -65,7 +65,7 @@ public void Modificar (string p_Usuario_OID, string p_nombre, string p_apellidos
         usuarioEN.Email = p_Usuario_OID;
         usuarioEN.Nombre = p_nombre;
         usuarioEN.Apellidos = p_apellidos;
-        //usuarioEN.Pass = Utils.Util.GetEncondeMD5 (p_pass);
+        usuarioEN.Pass = Utils.Util.GetEncondeMD5 (p_pass);
         usuarioEN.Disponibilidad = p_disponibilidad;
         usuarioEN.Ubicacion = p_ubicacion;
         //Call to UsuarioRepository

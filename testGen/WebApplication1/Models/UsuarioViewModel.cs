@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TestGen.ApplicationCore.EN.DSM;
 
 namespace WebApplication1.Models
 {

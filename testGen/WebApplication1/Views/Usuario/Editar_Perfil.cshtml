@@ -1,6 +1,6 @@
 ﻿@model WebApplication1.Models.UsuarioViewModel
 @{
-    ViewData["Title"] = "Editar_Perfil";
+    ViewData["Title"] = "Editar perfil";
 }
 
 <div class="container mt-4">
@@ -23,25 +23,31 @@
                     <!-- Información del Usuario -->
                     <div class="col-md-8">
                         <div class="form-group mb-3">
-                            <label for="Nombre" class="form-label fw-bold">Nombre</label>
+                            <label asp-for="Nombre" class="form-label fw-bold">Nombre</label>
                             @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Introduce tu nombre" })
                             @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Apellidos" class="form-label fw-bold">Apellidos</label>
+                            <label asp-for="Apellidos" class="form-label fw-bold">Apellidos</label>
                             @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Introduce tus apellidos" })
                             @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Email" class="form-label fw-bold">Email</label>
+                            <label asp-for="Pass" class="form-label fw-bold"></label>
+                            @Html.PasswordFor(m => m.Pass, new { @class = "form-control", placeholder = "Introduce tu nueva contraseña" })
+                            @Html.ValidationMessageFor(m => m.Pass, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label fw-bold">Email</label>
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Ubicacion" class="form-label fw-bold">Ubicación</label>
+                            <label asp-for="Ubicacion" class="form-label fw-bold">Ubicación</label>
                             @Html.TextBoxFor(m => m.Ubicacion, new { @class = "form-control", placeholder = "Introduce tu ubicación" })
                             @Html.ValidationMessageFor(m => m.Ubicacion, "", new { @class = "text-danger" })
                         </div>
@@ -50,7 +56,7 @@
 
                 <!-- Sección de Disponibilidad -->
                 <div class="form-group mb-4">
-                    <label for="Disponibilidad" class="form-label fw-bold">Disponibilidad</label>
+                    <label asp-for="Disponibilidad" class="form-label fw-bold">Disponibilidad</label>
                     @Html.TextAreaFor(m => m.Disponibilidad, new { @class = "form-control", placeholder = "Describe tu disponibilidad", rows = "4" })
                     @Html.ValidationMessageFor(m => m.Disponibilidad, "", new { @class = "text-danger" })
                 </div>
@@ -64,6 +70,12 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <!-- Estilos adicionales -->
 <style>
