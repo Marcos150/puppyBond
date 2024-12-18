@@ -1,0 +1,37 @@
+﻿ResultadosBusqueda.cshtml@model IEnumerable<WebApplication1.Models.MascotaViewModel>
+
+    @{
+        ViewData["Title"] = "Resultados de Búsqueda";
+    }
+
+    <div class="container mt-3">
+        <h3>Resultados de Búsqueda</h3>
+        <hr>
+        @if (Model != null && Model.Count > 0)
+
+        {
+            <div class="row">
+                @foreach (var mascota in Model)
+
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <img src="/imgs/@(mascota.Id).png" class="card-img-top" alt="Imagen de @mascota.Name" />
+                            <div class="card-body">
+                                <h5 class="card-title">@mascota.Name</h5>
+                                <p class="card-text">@mascota.Descripcion</p>
+                                <a href="@Url.Action("Perfil_ajeno", "Mascota", new { id = mascota.Id })" class="btn btn-primary">Ver Perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        else
+
+        {
+            <p>No se encontraron resultados para tu búsqueda.</p>
+        }
+
+    </div>

@@ -7,7 +7,10 @@
 
         <!-- Barra de búsqueda -->
         <div class="search-bar d-flex align-items-center flex-grow-1 mx-3">
-            <input type="search" class="form-control" placeholder="Buscar" />
+            <form asp-controller="Mascota" asp-action="Buscar" method="get" class="w-100 d-flex">
+                <input type="search" name="termino" class="form-control" placeholder="Buscar mascota por nombre..." required />
+                <button type="submit" class="btn btn-outline-primary ms-2">🔍</button>
+            </form>
         </div>
 
         <!-- Iconos -->

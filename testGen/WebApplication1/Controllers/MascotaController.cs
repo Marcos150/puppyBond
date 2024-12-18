@@ -46,6 +46,41 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public IActionResult Buscar(string termino)
+        {
+            if (string.IsNullOrWhiteSpace(termino))
+            {
+                return RedirectToAction("Index2"); // Redirige si no se proporciona un término
+            }
+
+            SessionInitialize();
+            try
+            {
+                MascotaRepository mascotaRepository = new MascotaRepository(session);
+                MascotaCEN mascotaCen = new MascotaCEN(mascotaRepository);
+
+                // Filtrar mascotas por el término
+                var mascotasFiltradas = mascotaCen.LeerTodos(0, -1)
+                    .Where(m => m.Nombre != null && m.Nombre.Contains(termino, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                // Convertir a ViewModel
+                var mascotasViewModel = new MascotaAssembler()
+                    .ConvertirListENToViewModel(mascotasFiltradas)
+                    .AsEnumerable(); // <-- Asegúrate de convertir a IEnumerable
+
+                SessionClose();
+
+                return View("ResultadosBusqueda", mascotasViewModel);
+            }
+            catch (Exception ex)
+            {
+                SessionClose();
+                Console.WriteLine(ex.Message);
+                return RedirectToAction("Index2");
+            }
+        }
+
 
         // GET: HomeController1
         public ActionResult Index()
