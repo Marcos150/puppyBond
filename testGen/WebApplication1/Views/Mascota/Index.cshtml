@@ -12,8 +12,8 @@
             @{ bool activeAssigned = false; }
             @foreach (var item in Model)
             {
-                <div class="carousel-item @(activeAssigned ? "active" : "")">
-                    <img src="/imgs/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
+                <div class="carousel-item @(!activeAssigned ? "active" : "")" id="@item.Id">
+                    <img src="/Images/Mascotas/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>@item.Name</h5>
                         <p>@item.Descripcion</p>
