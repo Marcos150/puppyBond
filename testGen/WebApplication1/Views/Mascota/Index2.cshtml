@@ -81,21 +81,18 @@
 
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
-                    <!--TODO: QUITAR ESTO Y PONER PRIMER ELEMENTO ACTIVE-->
                     <!--TODO: AJUSTAR TAMANYO IMAGEN-->
-                    <div class="carousel-item active">
-                        <img src="https://cdn.leonardo.ai/users/190c8fc4-abe6-49e9-b68e-b51dfe9e27fc/generations/18530c74-ae15-45a1-b9e3-eec9aab59ad0/Leonardo_Phoenix_Create_an_image_that_showcases_a_fun_and_vibr_2.jpg" class="d-block w-100" alt="...">
-                    </div>
-
+                    @{ bool activeAssigned = false; }
                     @foreach (var item in Model)
                     {
-                        <div class="carousel-item" id="@item.Id">
+                        <div class="carousel-item @(activeAssigned ? "active" : "")" id="@item.Id">
                             <img src="/imgs/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>@item.Name</h5>
                                 <p>@item.Descripcion</p>
                             </div>
                         </div>
+                        activeAssigned = true;
                     }
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
