@@ -6,6 +6,7 @@
 }
 
 @using Microsoft.AspNetCore.Http
+@using TestGen.ApplicationCore.Enumerated.DSM
 
 @{
     // No se porque, pero aqui si el usuario es null no va
@@ -63,7 +64,7 @@
                     }
                     @if (usuario.Mascota?.MatchEnviados.Count != 0)
                     {
-                        @foreach (var item in usuario.Mascota!.MatchEnviados)
+                        @foreach (var item in usuario.Mascota!.MatchEnviados.Where(mtc => mtc.Estado == EstadoMatchEnum.pendiente))
                         {
                             <li class="d-flex align-items-center">
                                 <i class="fas fa-user-circle me-2"></i> @item.MascotaRecibeNombre
@@ -75,13 +76,13 @@
             <div class="pending-list p-3 border rounded bg-light">
                 <h6>Pendientes de aceptar</h6>
                 <ul class="list-unstyled mt-2">
-                    @if (usuario.Mascota?.MatchEnviados.Count == 0)
+                    @if (usuario.Mascota?.MatchRecibidos.Count == 0)
                     {
                         <li class="d-flex align-items-center">
                             <i class="fas fa-user-circle me-2"></i> No tienes solicitudes pendientes de aceptar
                         </li>
                     }
-                    @if (usuario.Mascota?.MatchEnviados.Count != 0)
+                    @if (usuario.Mascota?.MatchRecibidos.Count != 0)
                     {
                         @foreach (var item in usuario.Mascota!.MatchRecibidos)
                         {
@@ -113,18 +114,20 @@
 
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
-                    <!--TODO: AJUSTAR TAMANYO IMAGEN-->
                     @{ bool activeAssigned = false; }
                     @foreach (var item in Model)
                     {
-                        <div class="carousel-item @(!activeAssigned ? "active" : "")" id="@item.Id">
-                            <img src="/Images/Mascotas/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>@item.Name</h5>
-                                <p>@item.Descripcion</p>
+                        if (item.Id != usuario.Mascota.Id)
+                        {
+                            <div class="carousel-item @(!activeAssigned ? "active" : "")" id="@item.Id">
+                                <img src="/Images/Mascotas/@(item.Id + ".png")" alt="Imagen de @item.Name" class="d-block w-100">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>@item.Name</h5>
+                                    <p>@item.Descripcion</p>
+                                </div>
                             </div>
-                        </div>
-                        activeAssigned = true;
+                            activeAssigned = true;
+                        }
                     }
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

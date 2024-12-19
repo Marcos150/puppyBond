@@ -18,46 +18,55 @@ namespace WebApplication1.Controllers
         //Obtiene mensajes de chat con un usuario determinado
         public ActionResult Index([FromQuery(Name = "correoUsuario")]  string correoUsuario = "")
         {
-            SessionInitialize();
-            MensajeRepository mensajeRepository = new MensajeRepository(session);
-            MensajeCEN mensajeCEN = new MensajeCEN(mensajeRepository);
-            UsuarioRepository usuarioRepository = new UsuarioRepository(session);
-            UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
-
-            UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
-            if (usuario == null) 
+            try
             {
+                SessionInitialize();
+                MensajeRepository mensajeRepository = new MensajeRepository(session);
+                MensajeCEN mensajeCEN = new MensajeCEN(mensajeRepository);
+                UsuarioRepository usuarioRepository = new UsuarioRepository(session);
+                UsuarioCEN usuarioCEN = new UsuarioCEN(usuarioRepository);
+
+                UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+                if (usuario == null)
+                {
+                    SessionClose();
+                    return RedirectToAction("Login", "Usuario");
+                }
+
+                IList<UsuarioEN> usuariosMatcheadosEN = usuarioCEN.ObtenerUsuariosMatcheados(usuario.Email);
+
+                //ObtenerUsuariosMatcheados solo devuelve de los que se ha recibido match, no de los que se ha enviado
+                //No tengo ni idea de como hacerlo bien con HQL, asi que como no hay tiempo lo hago asi
+                UsuarioEN usu = usuarioCEN.LeerOID(usuario.Email);
+                usuariosMatcheadosEN.AddRange(usu.Mascota.MatchRecibidos
+                    .Where(m => m.Estado == TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado)
+                    .Select(m => m.MascotaEnvia).Select(m => m.Duenyo));
+
+                IList<UsuarioViewModel> usuariosMatcheados =
+                    new UsuarioAssembler().ConvertirListENToViewModel(usuariosMatcheadosEN);
+                IList<string> correosUsuarios = usuariosMatcheados.Select(usu => usu.Email).ToList();
+
+                //Si no se pasa un usuario, se coge el primero matcheado
+                if (correoUsuario == "") correoUsuario = usuariosMatcheados[0].Email;
+
+                //TODO: Comprobar que los usuarios estan matcheados
+
+                IList<MensajeViewModel> todosMensajes =
+                    new MensajeAssembler().ConvertirListENToViewModel(mensajeCEN.LeerTodos(0, -1));
+
                 SessionClose();
-                return RedirectToAction("Login", "Usuario");
+                return View(todosMensajes);
             }
-
-            IList<UsuarioEN> usuariosMatcheadosEN = usuarioCEN.ObtenerUsuariosMatcheados(usuario.Email);
-
-            //ObtenerUsuariosMatcheados solo devuelve de los que se ha recibido match, no de los que se ha enviado
-            //No tengo ni idea de como hacerlo bien con HQL, asi que como no hay tiempo lo hago asi
-            UsuarioEN usu = usuarioCEN.LeerOID(usuario.Email);
-            usuariosMatcheadosEN.AddRange(usu.Mascota.MatchRecibidos.Where(m => m.Estado == TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado).Select(m => m.MascotaEnvia).Select(m => m.Duenyo));
-
-            IList<UsuarioViewModel> usuariosMatcheados = new UsuarioAssembler().ConvertirListENToViewModel(usuariosMatcheadosEN);
-
-            //Si no se pasa un usuario, se coge el primero matcheado
-            if (correoUsuario == "") correoUsuario = usuariosMatcheados[0].Email;
-
-            //TODO: Comprobar que los usuarios estan matcheados
-
-            IList<MensajeViewModel> todosMensajes = new MensajeAssembler().ConvertirListENToViewModel(mensajeCEN.LeerTodos(0, -1));
-            IEnumerable<MensajeViewModel> mensajesConUsuario = todosMensajes.Where(msg => (msg.EmailUsuarioEnvia == usuario.Email && msg.EmailUsuarioRecibe == correoUsuario) || (msg.EmailUsuarioRecibe == usuario.Email && msg.EmailUsuarioEnvia == correoUsuario));
-
-            SessionClose();
-            return View(mensajesConUsuario);
+            catch
+            {
+                return View(new List<MensajeViewModel>());
+            }
         }
 
         [HttpPost]
         public ActionResult Enviar([FromForm(Name = "correoReceptor")]  string correoReceptor, [FromForm(Name = "contenido")]  string contenido)
         {
             SessionInitialize();
-            MensajeRepository mensajeRepository = new MensajeRepository(session);
-            MensajeCEN mensajeCEN = new MensajeCEN(mensajeRepository);
             UsuarioCP usuarioCP = new UsuarioCP(new SessionCPNHibernate());
 
             UsuarioViewModel usuario = HttpContext.Session.Get<UsuarioViewModel>("usuario");
@@ -71,7 +80,7 @@ namespace WebApplication1.Controllers
 
             SessionClose();
 
-            return RedirectToAction(nameof(Index), routeValues: correoReceptor);
+            return Redirect("/Mensajes/Index?usuarioEmail=" + correoReceptor);
         }
     }
 }

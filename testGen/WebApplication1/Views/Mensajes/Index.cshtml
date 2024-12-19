@@ -10,13 +10,19 @@
     UsuarioViewModel usuario = Context.Session.Get<UsuarioViewModel>("usuario");
 }
 
+@{
+//Obtiene el correo del usuario a enviar el mensaje desde query strings
+Microsoft.Extensions.Primitives.StringValues queryVal;
+Context.Request.Query.TryGetValue("usuarioEmail", out queryVal);
+string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).FirstOrDefault()?.EmailUsuarioRecibe ?? Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => msg.EmailUsuarioEnvia != usuario.Email).First().EmailUsuarioEnvia;
+}
+
 <div class="container-fluid vh-100 d-flex flex-column">
     <!-- Main Content -->
     <div class="row flex-grow-1">
         <!-- Sidebar -->
         <div id="contenedorUsuarios" class="col-3 border-end p-3 overflow-auto">
-            <!-- TODO: Mostrar nombre en lugar de correo -->
-            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email))
+            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioEnvia == usuario.Email))
             {
                 <div class="user-item d-flex align-items-center mb-3">
                     <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
@@ -24,19 +30,23 @@
                 </div>
             }
             <!-- Imprime usuarios que te han enviado mensajes, pero tu a ellos no -->
-            @foreach (var item in Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => msg.EmailUsuarioEnvia != usuario.Email))
+            @foreach (var item in Model.Where(msg => msg.EmailUsuarioEnvia != usuario.Email && msg.EmailUsuarioRecibe == usuario.Email ))
             {
                 <div class="user-item d-flex align-items-center mb-3">
                     <i class="bi bi-person-circle me-2" style="font-size: 2rem;"></i>
                     <a href="/Mensajes/Index?usuarioEmail=@item.EmailUsuarioEnvia"><span>@item.EmailUsuarioEnvia</span></a>
                 </div>
             }
+            @if (!Model.Any())
+            {
+                <h3>No hay contactos</h3>
+            }
         </div>
 
         <!-- Chat Area -->
         <div class="col-9 d-flex flex-column">
             <div class="chat-messages flex-grow-1 p-3 overflow-auto">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Where(msg => msg.EmailUsuarioRecibe == correoReceptor || msg.EmailUsuarioEnvia == correoReceptor))
                 {
                     if (usuario.Email == item.EmailUsuarioRecibe)
                     {
@@ -49,6 +59,7 @@
                             <div class="message w-75 bg-secondary p-2 rounded mb-2 align-self-end">@item.Contenido</div>
                         }
                     }
+
                     if (usuario.Email == item.EmailUsuarioEnvia)
                     {
                         if (item.Contenido.Contains("https://www.google.com/maps/search/?q="))
@@ -61,21 +72,21 @@
                         }
                     }
                 }
+                @if (!Model.Any())
+                {
+                    <h2>Acepta una petición de match para poder chatear</h2>
+                }
             </div>
-            @{
-                //Obtiene el correo del usuario a enviar el mensaje desde query strings
-                Microsoft.Extensions.Primitives.StringValues queryVal;
-                Context.Request.Query.TryGetValue("correoUsuario", out queryVal);
-                string correoReceptor = queryVal.FirstOrDefault() ?? Model.DistinctBy(msg => msg.EmailUsuarioRecibe).Where(msg => msg.EmailUsuarioRecibe != usuario.Email).FirstOrDefault()?.EmailUsuarioRecibe ?? Model.DistinctBy(msg => msg.EmailUsuarioEnvia).Where(msg => msg.EmailUsuarioEnvia != usuario.Email).First().EmailUsuarioEnvia;
+            @if (Model.Any())
+            {
+                <form id="formMensaje" action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
+                    <input type="hidden" name="correoReceptor" value="@correoReceptor" />
+                    <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." name="contenido" required />
+                    <button class="btn btn-primary">Enviar</button>
+                </form>
+                <button id="btnUbicacion" type="button" class="btn btn-secondary">Enviar ubicación</button>
             }
-            <form id="formMensaje" action="/Mensajes/Enviar" method="post" class="chat-input d-flex align-items-center p-2 border-top">
-                <input type="hidden" name="correoReceptor" value="@correoReceptor" />
-                <input type="text" class="form-control me-2" placeholder="Escribe un mensaje..." name="contenido" required />
-                <button class="btn btn-primary">
-                    Enviar
-                </button>
-            </form>
-            <button id="btnUbicacion" type="button" class="btn btn-secondary">Enviar ubicación</button>
+            
             <script>
                 //Quita los contactos repetidos. Lo siento, no hay tiempo para hacerlo mejor
                 const divs = document.querySelectorAll("#contenedorUsuarios > div");

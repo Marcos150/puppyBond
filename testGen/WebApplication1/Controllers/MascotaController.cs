@@ -247,22 +247,35 @@ namespace WebApplication1.Controllers
         public ActionResult AceptarMatch(int matchId)
         {
             SessionInitialize();
-            UsuarioRepository usuarioRepository = new UsuarioRepository(session);
+            UsuarioRepository usuarioRepository = new UsuarioRepository();
             UsuarioCEN usuarioCen = new UsuarioCEN(usuarioRepository);
             MatchRepository matchRepository = new MatchRepository();
             MatchCEN matchCEN = new MatchCEN(matchRepository);
 
             UsuarioViewModel user = HttpContext.Session.Get<UsuarioViewModel>("usuario");
+            if (user == null)
+            {
+                SessionClose();
+                return RedirectToAction("Login", "Usuario");
+            }
 
             matchCEN.Modificar(matchId, TestGen.ApplicationCore.Enumerated.DSM.EstadoMatchEnum.aceptado, "Universidad de Alicante");
-
+            
+            matchRepository = new MatchRepository(session);
+            matchCEN = new MatchCEN(matchRepository);
+            //Envia mensaje automaticamente ya que no salen contactos sin mensajes
+            UsuarioCP usuarioCP = new UsuarioCP(new SessionCPNHibernate());
+            string correoReceptor = matchCEN.LeerOID(matchId).MascotaEnvia.Duenyo.Email;
+            usuarioCP.EnviarMensaje(user.Email, correoReceptor, "¡Hola!");
+            
             //Actualiza datos del usuario en la sesion
+            usuarioRepository = new UsuarioRepository(session);
+            usuarioCen = new UsuarioCEN(usuarioRepository);
             UsuarioViewModel usuarioActualizado = new UsuarioAssembler().ConvertirENToModel(usuarioCen.LeerOID(user.Email));
             HttpContext.Session.Set("usuario", usuarioActualizado);
 
             SessionClose();
-
-            return RedirectToAction("Index2", "Mascota");
+            return RedirectToAction("index", "Mensajes", routeValues: correoReceptor);
         }
 
         public ActionResult RechazarMatch(int matchId)
